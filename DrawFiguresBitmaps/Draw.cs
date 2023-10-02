@@ -86,5 +86,7 @@ namespace KrsUtils.DrawFigures.Bitmaps
         }
         #endregion
 
+        //Hi. Im a easter egg
+
     }
 }
