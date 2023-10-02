@@ -1,42 +1,48 @@
 ﻿
 
+using System.Drawing;
+
 namespace KrsUtils.DrawFigures
 {
     public class Circle
     {
-        private int x;
-        private int y;
-        private int radio;
-        private int diametro;
-        Vector2 targetVector;
+        private PointF centerF;      
+        private float radius;
+        private float diameter;
+        private double area;
+        private double perimeter;
 
         public Circle()
         {
 
         }
 
-        public Circle(int x, int y, int radio)
+        public Circle(float centerX, float centerY, float radius)
         {
-            this.radio = radio;
-            diametro = radio * 2;
-            this.x = x;
-            this.y = y;
+            this.centerF = new PointF(centerX, centerY);
+            this.radius = radius;
+            this.diameter = radius * 2;
+            this.area = Math.PI*radius*radius;
+            this.perimeter = Math.PI*radius * 2;
+
         }
 
-        public Circle(int x , int y, int radio, Vector2 vector)
+        public Circle(PointF centro, int radius)
         {
-            this.x = x;
-            this.y = y;
-            diametro = radio * 2;
-            this.radio = radio;
-            this.targetVector = vector;
+            this.centerF = centro;
+            this.radius = radius;
+            this.diameter = radius * 2;
+            this.area = Math.PI * radius * radius;
+            this.perimeter = Math.PI * radius * 2;
         }
 
-        public int Y { get => y; set => y = value; }
-        public int Diametro { get => diametro; set => diametro = value; }
-        public int X { get => x; set => x = value; }
-        public int Radio { get => radio; set => radio = value; }
-        public Vector2 TargetVector { get => targetVector; set => targetVector = value; }
+        public float Diameter { get => diameter; set => diameter = value; }
+        public float Radius { get => radius; set => radius = value; }
+        public PointF CenterF { get => centerF; set => centerF = value; }
+        public double Area { get => area; set => area = value; }
+        public double Perimeter { get => perimeter; set => perimeter = value; }
+
+
 
         #region Static Fabric Constructores
 
