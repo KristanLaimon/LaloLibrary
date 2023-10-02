@@ -86,7 +86,7 @@ namespace KrsUtils.DrawFigures
         /// <param name="p1">The initial Point</param>
         /// <param name="p2">The target Point</param>
         /// <returns></returns>
-        public static Vector2 GetVectorFromPoints(Point p1, Point p2)
+        public static Vector2 GetVectorFromPoints(PointF p1, PointF p2)
         {
             return new Vector2(p2.X - p1.X, p1.Y - p2.Y);
         }
