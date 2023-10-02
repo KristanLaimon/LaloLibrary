@@ -55,13 +55,13 @@ namespace KrsUtils.DrawFigures.Bitmaps
 
         public static void DrawFillCircleOnBitmap(Circle circle, ref Bitmap bitmap, Color color)
         {
-            if (circle.Radio <= 0) throw new Exception("El ancho no puede ser 0 o menor");
+            if (circle.Radius <= 0) throw new Exception("El ancho no puede ser 0 o menor");
 
             using (Graphics graphics = Graphics.FromImage(bitmap))
             {
                 using (Brush brush = new SolidBrush(color))
                 {
-                    graphics.FillEllipse(brush, new RectangleF(circle.X - circle.Radio, circle.Y - circle.Radio, circle.Radio * 2, circle.Radio * 2));
+                    graphics.FillEllipse(brush, new RectangleF(circle.CenterF.X - circle.Radius, circle.CenterF.Y - circle.Radius, circle.Radius * 2, circle.Radius * 2));
                 }
             }
         }

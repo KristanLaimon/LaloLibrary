@@ -42,7 +42,15 @@ namespace KrsUtils.DrawFigures
         public double Area { get => area; set => area = value; }
         public double Perimeter { get => perimeter; set => perimeter = value; }
 
+        public void ChangeX(float newX)
+        {
+            this.centerF = new PointF(newX, centerF.Y);
+        }
 
+        public void ChangeY(float newY)
+        {
+            this.centerF = new PointF(centerF.X, newY);
+        }
 
         #region Static Fabric Constructores
 
