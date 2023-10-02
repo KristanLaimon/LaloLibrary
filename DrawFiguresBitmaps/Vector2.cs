@@ -91,6 +91,10 @@ namespace KrsUtils.DrawFigures
             return new Vector2(p2.X - p1.X, p1.Y - p2.Y);
         }
 
+        public static Vector2 GetVectorFromPoints(Point p1, Point p2)
+        {
+            return new Vector2(p2.X - p1.X, p1.Y - p2.Y);
+        }
 
     }
 }
