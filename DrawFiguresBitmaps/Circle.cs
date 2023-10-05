@@ -1,12 +1,10 @@
-﻿
-
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace KrsUtils.DrawFigures
 {
     public class Circle
     {
-        private PointF centerF;      
+        private PointF centerF;
         private float radius;
         private float diameter;
         private double area;
@@ -14,7 +12,6 @@ namespace KrsUtils.DrawFigures
 
         public Circle()
         {
-
         }
 
         public Circle(float centerX, float centerY, float radius)
@@ -22,9 +19,8 @@ namespace KrsUtils.DrawFigures
             this.centerF = new PointF(centerX, centerY);
             this.radius = radius;
             this.diameter = radius * 2;
-            this.area = Math.PI*radius*radius;
-            this.perimeter = Math.PI*radius * 2;
-
+            this.area = Math.PI * radius * radius;
+            this.perimeter = Math.PI * radius * 2;
         }
 
         public Circle(PointF centro, int radius)
@@ -76,7 +72,7 @@ namespace KrsUtils.DrawFigures
         {
             return new Circle(x, y, radio);
         }
-        #endregion
 
+        #endregion Static Fabric Constructores
     }
 }

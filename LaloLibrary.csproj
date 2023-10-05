@@ -4,9 +4,35 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>LaloLibrary</Title>
+    <Version>0.0.1</Version>
+    <Authors>CristianLaimon, AlbertoRodRios</Authors>
+    <Description>A small library made to get some utils for our university journey</Description>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/CristianLaimon/LaloLibrary</RepositoryUrl>
+    <PackageReleaseNotes>The first ever release. It isn't completed, just for test nuget packaging.</PackageReleaseNotes>
+    <PackageTags>simple</PackageTags>
+    <PackageIcon></PackageIcon>
   </PropertyGroup>
 
-  <ItemGroup>
+	<PropertyGroup>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		
+		<None Include="README.md" Pack="true" PackagePath="\" />
+		
+	</ItemGroup>
+	
+	<ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
@@ -16,4 +42,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="README.md">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+	
 </Project>
