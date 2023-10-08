@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>LaloLibrary</Title>
-    <Version>0.1.0</Version>
+    <Version>0.1.0</Version> 
     <Authors>CristianLaimon, AlbertoRodRios</Authors>
     <Description>A small library made to get some utils for our university journey</Description>
     <Copyright>MIT</Copyright>
@@ -31,10 +31,10 @@
 		<None Include="README.md" Pack="true" PackagePath="\" />
 		
 	</ItemGroup>
-	
+
 	<ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-  </ItemGroup>
+	  <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+	</ItemGroup>
 
   <ItemGroup>
     <Reference Include="System.Windows.Forms">
