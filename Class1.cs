@@ -1,4 +1,4 @@
-﻿namespace KrsUtils
+﻿namespace LaloLibrary
 {
     public class Class1
     {

@@ -1,9 +1,9 @@
-﻿
+﻿using System.Drawing;
 
-using System.Drawing;
-
-namespace KrsUtils.DrawFigures
+namespace LaloLibrary.Physics
 {
+
+    //Esta clase hace demasiado, hayq ue hcer que sus calculos los realicé otra clase, talvez, MathVector....
     internal enum Seccion
     {
         Vector_X_Y,
