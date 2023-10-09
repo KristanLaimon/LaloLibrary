@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LaloLibrary.ParentClasses
 {
-    public abstract class Figure
+    internal abstract class Figure
     {
         
     }

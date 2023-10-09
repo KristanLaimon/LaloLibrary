@@ -5,8 +5,8 @@ namespace LaloLibrary.Geometry
     public class Circle
     {
         private Point center;
-        private float radius;
-        private float diameter;
+        private int radius;
+        private int diameter;
         private double area;
         private double perimeter;
 
@@ -14,7 +14,7 @@ namespace LaloLibrary.Geometry
         {
         }
 
-        public Circle(int centerX, int centerY, float radius)
+        public Circle(int centerX, int centerY, int radius)
         {
             this.Center = new Point(centerX, centerY);
             this.radius = radius;
@@ -32,8 +32,8 @@ namespace LaloLibrary.Geometry
             this.perimeter = Math.PI * radius * 2;
         }
 
-        public float Diameter { get => diameter; set => diameter = value; }
-        public float Radius { get => radius; set => radius = value; }
+        public int Diameter { get => diameter; set => diameter = value; }
+        public int Radius { get => radius; set => radius = value; }
         public double Area { get => area; set => area = value; }
         public double Perimeter { get => perimeter; set => perimeter = value; }
         public Point Center { get => center; set => center = value; }

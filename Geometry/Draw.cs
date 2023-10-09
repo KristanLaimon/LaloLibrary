@@ -87,7 +87,7 @@ namespace LaloLibrary.Geometry
 
         }
 
-        public static Bitmap DrawFillCircleOnBitmap(Circle circle, ref Bitmap bitmap, Color color)
+        public static Bitmap DrawFillCircleOnBitmap(Circle circle, Bitmap bitmap, Color color)
         {
             if (circle.Radius <= 0) throw new Exception("El ancho no puede ser 0 o menor");
 
@@ -117,9 +117,22 @@ namespace LaloLibrary.Geometry
 
         }
 
+        public static void DrawPerimeterOnBitmap(Bitmap bitmap, int grosor, Color color)
+        {
+            if (grosor <= 0) throw new Exception("El ancho tiene que ser mayor que 0");
+
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                using (Pen pen = new Pen(color, grosor))
+                {
+                    graphics.DrawRectangle(pen, 0, 0, bitmap.Width, bitmap.Height);
+                }
+            }
+        }
+
         #endregion
 
-   
+
 
         //easter egg main
     }
