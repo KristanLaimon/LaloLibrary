@@ -132,8 +132,6 @@ namespace LaloLibrary.Geometry
 
         #endregion
 
-
-
         //easter egg main
     }
 }

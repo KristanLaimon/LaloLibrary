@@ -19,16 +19,6 @@ namespace LaloLibrary.FormsUtils.Bitmaps
         /// <param name="bitmap"></param>
         public static void UpdatePictureBox(PictureBox picturebox, Bitmap bitmap) => picturebox.Image = bitmap;
 
-        public static Bitmap MakeBitmapBlank(Bitmap bitmap)
-        {
-            using (Graphics g = Graphics.FromImage(bitmap))
-            {
-                g.Clear(Color.White);
-            }
-
-            return bitmap;
-        }
-
         public static Bitmap PaintBitmap(Bitmap bitmap, Color color)
         {
             using (Graphics g = Graphics.FromImage(bitmap))

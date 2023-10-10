@@ -4,10 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaloLibrary.ParentClasses
+namespace LaloLibrary.Geometry
 {
     internal abstract class Figure
     {
-        
+
+    }
+
+    internal interface IPhysics
+    {
+
     }
 }

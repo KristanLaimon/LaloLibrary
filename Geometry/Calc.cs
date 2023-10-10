@@ -15,5 +15,15 @@ namespace LaloLibrary.Geometry
             int deltaY = point2.Y - point1.Y;
             return Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
         }
+
+        public static double GetDistanceXFrom(Point point1, Point point2)
+        {
+            return point2.X - point1.X;
+        }
+
+        public static double GetDistanceYFrom(Point point1, Point point2)
+        {
+            return point2.Y - point1.Y;
+        }
     }
 }
