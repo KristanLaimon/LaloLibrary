@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
 
 namespace LaloLibrary.Geometry
 {
+    [SupportedOSPlatform("windows")]
     public class Draw
     {
         /// <summary>
@@ -39,7 +41,7 @@ namespace LaloLibrary.Geometry
             {
                 using (Pen pen = new Pen(color, grosor))
                 {
-                    graphics.DrawEllipse(pen, new RectangleF(circle.Center.X - circle.Radius, circle.Center.Y - circle.Radius, circle.Radius * 2, circle.Radius * 2));
+                    graphics.DrawEllipse(pen, new RectangleF(circle.Location.X - circle.Radius, circle.Location.Y - circle.Radius, circle.Radius * 2, circle.Radius * 2));
                 }
             }
 
@@ -54,7 +56,7 @@ namespace LaloLibrary.Geometry
             {
                 using (Pen pen = new Pen(color, grosor))
                 {
-                    graphics.DrawEllipse(pen, new RectangleF(circle.CenterF.X - circle.Radius, circle.CenterF.Y - circle.Radius, circle.Radius * 2, circle.Radius * 2));
+                    graphics.DrawEllipse(pen, new RectangleF(circle.Location.X - circle.Radius, circle.Location.Y - circle.Radius, circle.Radius * 2, circle.Radius * 2));
                 }
             }
             return bitmap;
@@ -93,7 +95,7 @@ namespace LaloLibrary.Geometry
             {
                 using (Brush brush = new SolidBrush(color))
                 {
-                    graphics.FillEllipse(brush, new RectangleF(circle.Center.X - circle.Radius, circle.Center.Y - circle.Radius, circle.Radius * 2, circle.Radius * 2));
+                    graphics.FillEllipse(brush, new RectangleF(circle.Location.X - circle.Radius, circle.Location.Y - circle.Radius, circle.Radius * 2, circle.Radius * 2));
                 }
             }
             return bitmap;
@@ -108,7 +110,7 @@ namespace LaloLibrary.Geometry
             {
                 using (Brush brush = new SolidBrush(color))
                 {
-                    graphics.FillEllipse(brush, new RectangleF(circle.CenterF.X - circle.Radius, circle.CenterF.Y - circle.Radius, circle.Radius * 2, circle.Radius * 2));
+                    graphics.FillEllipse(brush, new RectangleF(circle.Location.X - circle.Radius, circle.Location.Y - circle.Radius, circle.Radius * 2, circle.Radius * 2));
                 }
             }
             return bitmap;

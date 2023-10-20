@@ -13,9 +13,9 @@ namespace LaloLibrary.Geometry.Interfaces
         private double perimeter;
         private PointF location;
 
-        protected double Perimeter { get => perimeter; set => perimeter = value; }
-        protected PointF Location { get => location; set => location = value; }
-        protected double Area { get => area; set => area = value; }
+        public double Perimeter { get => perimeter; set => perimeter = value; }
+        public PointF Location { get => location; set => location = value; }
+        public double Area { get => area; set => area = value; }
     }
 
     internal interface IFigure
