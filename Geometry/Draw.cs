@@ -6,8 +6,6 @@ namespace LaloLibrary.Geometry
 {
     public class Draw
     {
-
-        #region Bitmaps
         /// <summary>
         /// Draws a circle on a bitmap with the specified parameters. You don't have to worry about "the rectangle". Just coordinates and radius. That's it!
         /// </summary>
@@ -129,8 +127,6 @@ namespace LaloLibrary.Geometry
                 }
             }
         }
-
-        #endregion
 
         //easter egg main
     }

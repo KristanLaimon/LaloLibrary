@@ -1,51 +1,45 @@
 ﻿using System.Drawing;
+using LaloLibrary.Geometry.Interfaces;
 
 namespace LaloLibrary.Geometry
 {
-    public class Circle
+    public class Circle : Figure2D
     {
-        private Point center;
-        private int radius;
-        private int diameter;
-        private double area;
-        private double perimeter;
+        protected int radius;
+        protected int diameter;
 
-        public Circle()
-        {
-        }
-
+        public Circle() { }
         public Circle(int centerX, int centerY, int radius)
         {
-            this.Center = new Point(centerX, centerY);
-            this.radius = radius;
-            this.diameter = radius * 2;
-            this.area = Math.PI * radius * radius;
-            this.perimeter = Math.PI * radius * 2;
+            Location = new Point(centerX, centerY);
+            InitializeItself(radius);
         }
 
         public Circle(Point center, int radius)
         {
-            this.Center = center;
+            Location = center;
+            InitializeItself(radius);
+        }
+
+        private void InitializeItself(int radius)
+        {
             this.radius = radius;
-            this.diameter = radius * 2;
-            this.area = Math.PI * radius * radius;
-            this.perimeter = Math.PI * radius * 2;
+            diameter = radius * 2;
+            Area = Math.PI * radius * radius;
+            Perimeter = Math.PI * radius * 2;
         }
 
         public int Diameter { get => diameter; set => diameter = value; }
         public int Radius { get => radius; set => radius = value; }
-        public double Area { get => area; set => area = value; }
-        public double Perimeter { get => perimeter; set => perimeter = value; }
-        public Point Center { get => center; set => center = value; }
 
-        public void ChangeX(int newX)
+        public void ChangeX(float newX)
         {
-            this.Center = new Point(newX, Center.Y);
+            Location = new PointF(newX, Location.Y);
         }
 
-        public void ChangeY(int newY)
+        public void ChangeY(float newY)
         {
-            this.Center = new Point(Center.X, newY);
+            Location = new PointF(Location.X, newY);
         }
 
     }

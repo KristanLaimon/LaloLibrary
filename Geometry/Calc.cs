@@ -9,6 +9,8 @@ namespace LaloLibrary.Geometry
 {
     public class Calc
     {
+        public static Random Random = new Random();
+
         public static double GetDistanceFrom(Point point1, Point point2)
         {
             int deltaX = point2.X - point1.X;

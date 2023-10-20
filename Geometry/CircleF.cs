@@ -4,54 +4,38 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LaloLibrary.Geometry.Interfaces;
 
 namespace LaloLibrary.Geometry
 {
-    public class CircleF
+    public class CircleF : Circle
     {
-        private PointF centerF;
-        private float radius;
-        private float diameter;
-        private double area;
-        private double perimeter;
+        private new float radius;
+        private new float diameter;
 
-        public CircleF()
+        public CircleF(Point center, float radius)
         {
+            this.Location = center;
+            InitializeItself(radius);
         }
 
         public CircleF(float centerX, float centerY, float radius)
         {
-            this.CenterF = new PointF(centerX, centerY);
+            this.Location = new PointF(centerX, centerY);
+            InitializeItself(radius);
+        }
+
+        public float Radius1 { get => radius; set => radius = value; }
+        public float Diameter1 { get => diameter; set => diameter = value; }
+
+        private void InitializeItself(float radius)
+        {
             this.radius = radius;
-            this.diameter = radius * 2;
-            this.area = Math.PI * radius * radius;
-            this.perimeter = Math.PI * radius * 2;
+            diameter = radius * 2;
+            Area = Math.PI * radius * radius;
+            Perimeter = Math.PI * radius * 2;
         }
 
-        public CircleF(Point center, int radius)
-        {
-            this.CenterF = center;
-            this.radius = radius;
-            this.diameter = radius * 2;
-            this.area = Math.PI * radius * radius;
-            this.perimeter = Math.PI * radius * 2;
-        }
-
-        public float Diameter { get => diameter; set => diameter = value; }
-        public float Radius { get => radius; set => radius = value; }
-        public double Area { get => area; set => area = value; }
-        public double Perimeter { get => perimeter; set => perimeter = value; }
-        public PointF CenterF { get => centerF; set => centerF = value; }
-
-        public void ChangeX(int newX)
-        {
-            this.CenterF = new PointF(newX, CenterF.Y);
-        }
-
-        public void ChangeY(int newY)
-        {
-            this.CenterF = new PointF(CenterF.X, newY);
-        }
 
     }
 }
