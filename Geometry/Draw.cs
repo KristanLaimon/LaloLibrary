@@ -131,7 +131,7 @@ namespace LaloLibrary.Geometry
         }
 
         //easter egg main
-        //when eres un easter egg en main: soy un easter egg en main xDXxdXXD
-        //but estas en la clase Draw: oh mi lente de contacto XDDDXxXXD
+        //when eres un easter egg en main: soy un easter egg en main Bv Bv XdXdxDxd
+        //but estas en la clase Draw: oh mi lente de contacto :v :v XdXdxDxDXDxD
     }
 }
