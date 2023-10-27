@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace LaloLibrary.FormsUtils.Bitmaps
+namespace LaloLibrary.Forms.Utils
 {
     public class BitmapUtils
     {
