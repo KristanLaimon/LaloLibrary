@@ -16,17 +16,20 @@ namespace LaloLibrary.Parsers
         }
 
         //This evaluates and log every calculation... it should be splitted in two methods (?)
-        public double EvaluatePrefix(string prefix, out string[] process)
+        public CalcResults EvaluatePrefix(string prefix)
         {
             string infix;
+
             try
             {
-                infix = GetInfijoFormatted(prefix);
+                infix = parser.ConvertToInfix(prefix, out bool infixChanged);
             }
-            catch (ParserException)
+            catch (ParserException ex)
             {
-                throw new CalcException("Se ha intentado calcular una expresión con solo un operando");
+                throw new CalcException($"Error at: EvaluatePrefix()->|||ConvertToInfix --->MessageParserException:{ex.Message}||| from CalcExpression class");
             }
+
+            infix = infix.Replace(" ", "");
 
             logger.Add(infix);
             LinkedStack<double> stack = new();
@@ -52,7 +55,7 @@ namespace LaloLibrary.Parsers
                     }
                     catch
                     {
-                        if (!StringUtils.AreThereLetters(StringUtils.GetTextFromStringArray(tokens)))
+                        if (!StringUtils.AreThereLetters(StringUtils.GetAppendedLineFromArray(tokens)))
                         {
                             throw new CalcException("Se ha utilizando puntos flotantes demás e.g '12.12.12'");
                         }
@@ -69,11 +72,19 @@ namespace LaloLibrary.Parsers
                         }
                         catch
                         {
-                            if (!StringUtils.AreThereLetters(StringUtils.GetTextFromStringArray(tokens)))
+                            if (tokens[i] == "-" || tokens[i] == "+")
+                            {
+                                operand2 = operand1;
+                                operand1 = 0;
+                            }
+                            else if (!StringUtils.AreThereLetters(StringUtils.GetAppendedLineFromArray(tokens)))
                             {
                                 throw new CalcException("Se ha utilizando puntos flotantes demás e.g '12.12.12'");
                             }
-                            throw new CalcException("Seleccionando valores para las letras...");
+                            else
+                            {
+                                throw new CalcException("Seleccionando valores para las letras...");
+                            }
                         }
 
                         switch (tokens[i])
@@ -125,22 +136,14 @@ namespace LaloLibrary.Parsers
                     logger.Add(infix);
                 }
             }
-            //logger
-            /*return*/
-            process = logger.ToArray();
 
+            CalcResults calcResults;
+            calcResults.Steps = logger.ToArray();
+            calcResults.FinalResult = stack.Pop();
             logger.Clear();
-            //Evaluation
-            double finalResult = stack.Pop();
-            return finalResult;
+            return calcResults;
         }
 
-        private string GetInfijoFormatted(string prefix)
-        {
-            string infix = parser.ConvertToInfix(prefix);
-            infix = infix.Replace(" ", "");
-            return infix;
-        }
 
         public string EcuationToString(double op1, string operation, double op2)
         {

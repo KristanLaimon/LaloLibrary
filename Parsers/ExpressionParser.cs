@@ -6,34 +6,33 @@ namespace LaloLibrary.Parsers
 {
     public class ExpressionParser
     {
-        private LinkedStack<char> finalResultStack;
-        private LinkedStack<char> operationStack;
-        private LinkedStack<char> tempStack;
-        private LinkedStack<char> inputStack;
-        private ParserLogger internalLogger;
+        private LinkedStack<char> finalResultStack, operationStack, tempStack, inputStack;
+        private InternalParserLogger logger;
 
         public ExpressionParser()
         {
-            internalLogger = new();
+            logger = new();
             finalResultStack = new();
             operationStack = new();
             tempStack = new();
             inputStack = new();
         }
 
-        public string ConvertToPrefix(string infijo, out ParserLogger allLogs)
+        public ParserResults ConvertToPrefix(string infijo)
         {
             GenerateInputStack(infijo);
-            internalLogger.Clear();
+            logger.Clear();
 
             bool lastCharWasOp = false;
             bool lastCharWasOpeningBracket = false;
 
             while (inputStack.Count() != 0)
             {
-                internalLogger.inputStackLog.Add(StringUtils.InvertString(inputStack.MakeToString()));
+                string algo = inputStack.MakeToString();
+                logger.LogInputStack(StringUtils.InvertString(inputStack.MakeToString()));
+
                 char actualChar = inputStack.Pop();
-                internalLogger.singleInputLog.Add(actualChar);
+                logger.LogSingleInput(actualChar);
 
                 if (char.IsLetterOrDigit(actualChar))
                 {
@@ -47,29 +46,46 @@ namespace LaloLibrary.Parsers
                     }
                 }
 
-                if (StringUtils.IsOperator(actualChar.ToString()))
+                if (StringUtils.IsOperator(actualChar))
                 {
-                    if (lastCharWasOp)
+                    if (lastCharWasOp && actualChar != '-' && actualChar != '+' && !lastCharWasOpeningBracket)
                     {
-                        throw new ParserException("Se ha puesto dos operandos seguidos... e.g '+/' ó '+)", this);
+                        throw new ParserException("Se ha puesto dos operandos seguidos que no sean '+' ni '-'... e.g '//' ó '^^'", this);
                     }
 
                     lastCharWasOp = true;
+
+                    if (actualChar == '-' && !lastCharWasOp)
+                    {
+                        // If '-' is not following an operator or opening parenthesis, treat it as a subtraction operator.
+                        while (IsLessImportantThanNextOne(actualChar, GetBelowActualChar()) && operationStack.Count() > 1)
+                        {
+                            SwapAndPushOperators();
+                        }
+                        lastCharWasOp = true;
+                        operationStack.Push(actualChar);
+                        logger.LogOperatorStack(operationStack.MakeToString());
+                    }
+
+                    logger.LogOperatorStack(operationStack.MakeToString());
                     operationStack.Push(actualChar);
-                    internalLogger.operatorStackLog.Add(operationStack.MakeToString());
 
                     if (IsLessImportantThanNextOne(actualChar, GetBelowActualChar()) && operationStack.Count() > 1)
+                    {
                         SwapAndPushOperators();
+                    }
                     continue;
                 }
 
-                if (StringUtils.IsSpecialOperator(actualChar.ToString()))
+                if (StringUtils.IsSpecialOperator(actualChar))
                 {
                     operationStack.Push(actualChar);
-                    internalLogger.operatorStackLog.Add(operationStack.MakeToString());
+                    logger.LogOperatorStack(operationStack.MakeToString());
 
                     if (IsLessImportantThanNextOne(actualChar, GetBelowActualChar()) && operationStack.Count() > 1)
+                    {
                         SwapAndPushOperators();
+                    }
                     continue;
                 }
 
@@ -82,6 +98,7 @@ namespace LaloLibrary.Parsers
 
                 if (StringUtils.IsOpeningBracket(actualChar))
                 {
+                    lastCharWasOp = true;
                     lastCharWasOpeningBracket = true;
                     PopAndPushUntilClosingBracket();
                     continue;
@@ -89,7 +106,7 @@ namespace LaloLibrary.Parsers
 
                 if (char.IsWhiteSpace(actualChar))
                 {
-                    continue;
+                    continue; //Ignore whitespaces
                 }
 
                 if (actualChar == '.')
@@ -100,12 +117,12 @@ namespace LaloLibrary.Parsers
                 lastCharWasOp = false;
                 lastCharWasOpeningBracket = false;
 
-                LogActualResultStack();
+                logger.LogProcess(finalResultStack.MakeToString().Trim());
             }
 
             if (lastCharWasOpeningBracket)
             {
-                LogActualResultStack();
+                logger.LogProcess(finalResultStack.MakeToString().Trim());
             }
 
             PushRemainingOperators();
@@ -115,30 +132,23 @@ namespace LaloLibrary.Parsers
                 throw new ParserException("Se ha puesto un ') demás en la ecuación", this);
             }
 
-            //processLog.Add(finalResultStack.MakeToString().Trim());
-            /*return*/
-            string finalResult = finalResultStack.MakeToString().Trim();
-            allLogs = internalLogger;
+            ParserResults finalResults = CreateParserResults();
             ClearParser();
-            return finalResult;
+            return finalResults;
         }
-
-        #region Methods
-
-        internal void ClearParser()
+        private ParserResults CreateParserResults()
         {
-            operationStack.Clear();
-            inputStack.Clear();
-            finalResultStack.Clear();
+            ParserResults results;
+            results.processLog = logger.ProcessLog;
+            results.operatorStackLog = logger.OperatorStackLog;
+            results.singleInputLog = logger.SingleInputLog;
+            results.inputStackLog = logger.InputStackLog;
+            results.Prefix = finalResultStack.MakeToString().Trim();
+            return results;
         }
-
-        private void LogActualResultStack()
+        public string ConvertToInfix(string prefix, out bool infixChanged)
         {
-            internalLogger.processLog.Add(finalResultStack.MakeToString().Trim());
-        }
-
-        public string ConvertToInfix(string prefix)
-        {
+            infixChanged = false;
             LinkedStack<string> stack = new();
             string[] tokens = prefix.Split(' ');
 
@@ -166,7 +176,12 @@ namespace LaloLibrary.Parsers
                     }
                     catch
                     {
-                        throw new ParserException("Se ha puesto operador(es) demás...", this);
+                        if (token != "-" && token != "+" && token != "/" && token != "*")
+                        {
+                            throw new ParserException("Se ha puesto operador(es) demás...", this);
+                        }
+                        operand2 = operand1;
+                        operand1 = "0";
                     }
 
                     string infixExpression = "(" + " " + operand1 + " " + token + " " + operand2 + " " + ")";
@@ -186,6 +201,17 @@ namespace LaloLibrary.Parsers
             }
 
             return stack.Pop();
+        }
+
+
+        #region Parser Core 
+
+        internal void ClearParser()
+        {
+            operationStack.Clear();
+            inputStack.Clear();
+            finalResultStack.Clear();
+            tempStack.Clear();
         }
 
         private void SpacedPushToFinalStack(char actualChar)
@@ -261,7 +287,7 @@ namespace LaloLibrary.Parsers
                 tempStack.Push(operationStack.Pop());
                 SpacedPushToFinalStack(operationStack.Pop());
                 operationStack.Push(tempStack.Pop());
-                internalLogger.operatorStackLog.Add(operationStack.MakeToString());
+                logger.LogOperatorStack(operationStack.MakeToString());
             }
         }
 
@@ -273,7 +299,7 @@ namespace LaloLibrary.Parsers
                 while (actualOp != ')')
                 {
                     SpacedPushToFinalStack(operationStack.Pop());
-                    internalLogger.operatorStackLog.Add(operationStack.MakeToString());
+                    logger.LogOperatorStack(operationStack.MakeToString());
                     actualOp = operationStack.Peek();
                 }
             }
@@ -290,8 +316,8 @@ namespace LaloLibrary.Parsers
             while (operationStack.Count() != 0)
             {
                 SpacedPushToFinalStack(operationStack.Pop());
-                internalLogger.operatorStackLog.Add(operationStack.MakeToString());
-                internalLogger.processLog.Add(finalResultStack.MakeToString());
+                logger.LogOperatorStack(operationStack.MakeToString());
+                logger.LogProcess(finalResultStack.MakeToString());
             }
         }
 

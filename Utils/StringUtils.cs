@@ -25,9 +25,24 @@ namespace LaloLibrary.Utils
             return sb.ToString();
         }
 
-        public static bool IsOperator(string c)
+        public static bool IsOperator(char c)
         {
             switch (c)
+            {
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                case '^':
+                case '%':
+                    return true;
+            }
+            return false;
+        }
+
+        public static bool IsOperator(string s)
+        {
+            switch (s)
             {
                 case "+":
                 case "-":
@@ -35,6 +50,16 @@ namespace LaloLibrary.Utils
                 case "/":
                 case "^":
                 case "%":
+                    return true;
+            }
+            return false;
+        }
+
+        public static bool IsSpecialOperator(char c)
+        {
+            switch (c)
+            {
+                case '√':
                     return true;
             }
             return false;
@@ -82,11 +107,20 @@ namespace LaloLibrary.Utils
             return uniqueArray;
         }
 
-        public static string GetTextFromStringArray(string[] str)
+        public static string GetAppendedLineFromArray(string[] str)
         {
             StringBuilder sb = new();
             foreach (string line in str)
                 sb.AppendLine(line);
+
+            return sb.ToString();
+        }
+
+        public static string GetStringFromArray(string[] str)
+        {
+            StringBuilder sb = new();
+            foreach (string line in str)
+                sb.Append(line);
 
             return sb.ToString();
         }
