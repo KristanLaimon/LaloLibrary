@@ -130,6 +130,30 @@ namespace LaloLibrary.Geometry
             }
         }
 
+        public static Bitmap DrawFigure2DOnBitmap(int lados, float radio, float centroX, float centroY, float rotacion, Bitmap bitmap, int grosor, Color color)
+        {
+            if (grosor <= 0 || radio <= 0) throw new Exception("El ancho no puede ser 0 o menor");
+            if (lados < 3) throw new Exception("La figura debe tener al menos 3 lados");
+
+            PointF[] vertices = new PointF[lados + 1];
+            double angulo = Math.PI * (360 / lados) / 180;
+            double anguloR = Math.PI * (rotacion) / 180;
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                using (Pen pen = new Pen(color, grosor))
+                {
+                    for (int i = 0; i < lados; i++)
+                    {
+                        vertices[i] = (new PointF((float)(radio * Math.Cos(i * angulo + anguloR)) + centroX, (float)(radio * Math.Sin(i * angulo + anguloR) + centroY)));
+                    }
+                    vertices[lados - 1] = (new PointF((float)(radio * Math.Cos(anguloR)) + centroX, (float)(radio * Math.Sin(anguloR) + centroY)));
+                    graphics.DrawPolygon(pen, vertices);
+                }
+            }
+
+            return bitmap;
+        }
+
         //easter egg main
         //when eres un easter egg en main: soy un easter egg en main Bv Bv XdXdxDxd
         //but estas en la clase Draw: oh mi lente de contacto :v :v XdXdxDxDXDxD
