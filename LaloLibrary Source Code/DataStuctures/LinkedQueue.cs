@@ -1,8 +1,9 @@
 ﻿namespace LaloLibrary.DataStructures
 {
-    internal class LinkedQueue<T>
+    public class LinkedQueue<T>
     {
         private Node<T> front;
+        private Node<T> back;
 
         public LinkedQueue()
         { }
@@ -13,12 +14,12 @@
 
             if (IsEmpty())
             {
-                front = newNode;
+                front = back = newNode;
             }
             else
             {
-                Node<T> lastNode = GetLastNode();
-                lastNode.NextNode = newNode;
+                back.NextNode = newNode;
+                back = newNode;
             }
         }
 
@@ -36,21 +37,10 @@
             }
         }
 
-        private Node<T> GetLastNode()
-        {
-            Node<T> pointerNode = front;
-
-            while (pointerNode.NextNode != null)
-            {
-                pointerNode = pointerNode.NextNode;
-            }
-
-            return pointerNode;
-        }
-
         public bool IsEmpty()
         {
             return front == null;
         }
+
     }
 }

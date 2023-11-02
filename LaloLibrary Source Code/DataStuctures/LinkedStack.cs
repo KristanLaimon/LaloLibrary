@@ -64,6 +64,7 @@ namespace LaloLibrary.DataStructures
             return output;
         }
 
+        //TODO: Change this to get topNode.NextData.Data. This is the real purpose...
         public Node<T> PeekNode() => topNode;
 
         public T Peek() => topNode.Data;
