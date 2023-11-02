@@ -136,11 +136,10 @@ namespace LaloLibrary.Geometry
             {
                 using (Pen pen = new Pen(color, grosor))
                 {
-                    for (int i = 0; i < lados; i++)
+                    for (int i = 0; i <= lados; i++)
                     {
                         vertices[i] = (new PointF((float)(radio * Math.Cos(i * angulo + anguloR)) + centroX, (float)(radio * Math.Sin(i * angulo + anguloR) + centroY)));
                     }
-                    vertices[lados - 1] = (new PointF((float)(radio * Math.Cos(anguloR)) + centroX, (float)(radio * Math.Sin(anguloR) + centroY)));
                     graphics.DrawPolygon(pen, vertices);
                 }
             }
