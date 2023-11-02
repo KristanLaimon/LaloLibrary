@@ -1,5 +1,4 @@
-﻿
-namespace LaloLibrary.Parsers
+﻿namespace LaloLibrary.Parsers
 {
     public struct CalcResults
     {

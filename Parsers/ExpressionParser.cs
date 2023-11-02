@@ -1,5 +1,5 @@
-﻿using LaloLibrary.Exceptions;
-using LaloLibrary.DataStructures;
+﻿using LaloLibrary.DataStructures;
+using LaloLibrary.Exceptions;
 using LaloLibrary.Utils;
 
 namespace LaloLibrary.Parsers
@@ -136,6 +136,7 @@ namespace LaloLibrary.Parsers
             ClearParser();
             return finalResults;
         }
+
         private ParserResults CreateParserResults()
         {
             ParserResults results;
@@ -146,6 +147,7 @@ namespace LaloLibrary.Parsers
             results.Prefix = finalResultStack.MakeToString().Trim();
             return results;
         }
+
         public string ConvertToInfix(string prefix, out bool infixChanged)
         {
             infixChanged = false;
@@ -203,8 +205,7 @@ namespace LaloLibrary.Parsers
             return stack.Pop();
         }
 
-
-        #region Parser Core 
+        #region Parser Core
 
         internal void ClearParser()
         {
@@ -321,6 +322,6 @@ namespace LaloLibrary.Parsers
             }
         }
 
-        #endregion Methods
+        #endregion Parser Core
     }
 }

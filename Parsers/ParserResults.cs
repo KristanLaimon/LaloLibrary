@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LaloLibrary.Parsers
+﻿namespace LaloLibrary.Parsers
 {
     public struct ParserResults
     {
@@ -13,6 +11,5 @@ namespace LaloLibrary.Parsers
         public string[] operatorStackLog;
 
         public string[] processLog;
-
     }
 }

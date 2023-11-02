@@ -10,12 +10,15 @@ namespace LaloLibrary.Physics
         private double angleRadians;
         private double angleDegrees;
 
-        public Vector2() { }
+        public Vector2()
+        { }
+
         public Vector2(double Vx, double Vy)
         {
             x = Vx;
             y = Vy;
         }
+
         public double X { get => x; set => x = value; }
         public double Y { get => y; set => y = value; }
         public double Magnitude { get => magnitude; set => magnitude = value; }

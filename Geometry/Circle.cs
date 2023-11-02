@@ -1,5 +1,5 @@
-﻿using System.Drawing;
-using LaloLibrary.Geometry.Interfaces;
+﻿using LaloLibrary.Geometry.Interfaces;
+using System.Drawing;
 
 namespace LaloLibrary.Geometry
 {
@@ -8,7 +8,9 @@ namespace LaloLibrary.Geometry
         protected int radius;
         protected int diameter;
 
-        public Circle() { }
+        public Circle()
+        { }
+
         public Circle(int centerX, int centerY, int radius)
         {
             Location = new Point(centerX, centerY);
@@ -41,6 +43,5 @@ namespace LaloLibrary.Geometry
         {
             Location = new PointF(Location.X, newY);
         }
-
     }
 }

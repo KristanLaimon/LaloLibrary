@@ -39,12 +39,11 @@
             }
         }
 
-
-
         public void LogInputStack(string inputStack)
         {
             inputStackLog.Add(inputStack);
         }
+
         public void LogSingleInput(char input)
         {
             singleInputLog.Add(input);
@@ -68,5 +67,4 @@
             processLog.Clear();
         }
     }
-
 }

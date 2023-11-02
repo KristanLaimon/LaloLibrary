@@ -144,7 +144,6 @@ namespace LaloLibrary.Parsers
             return calcResults;
         }
 
-
         public string EcuationToString(double op1, string operation, double op2)
         {
             return op1.ToString() + operation + op2.ToString();

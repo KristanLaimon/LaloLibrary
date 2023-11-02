@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LaloLibrary.Geometry.Interfaces;
+﻿using System.Drawing;
 
 namespace LaloLibrary.Geometry
 {
@@ -35,7 +29,5 @@ namespace LaloLibrary.Geometry
             Area = Math.PI * radius * radius;
             Perimeter = Math.PI * radius * 2;
         }
-
-
     }
 }

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Runtime.Versioning;
-using System.Windows.Forms;
 
 namespace LaloLibrary.Geometry
 {
@@ -60,7 +58,6 @@ namespace LaloLibrary.Geometry
                 }
             }
             return bitmap;
-
         }
 
         /// <summary>
@@ -84,7 +81,6 @@ namespace LaloLibrary.Geometry
                 }
             }
             return bitmap;
-
         }
 
         public static Bitmap DrawFillCircleOnBitmap(Circle circle, Bitmap bitmap, Color color)
@@ -99,7 +95,6 @@ namespace LaloLibrary.Geometry
                 }
             }
             return bitmap;
-
         }
 
         public static Bitmap DrawFillCircleFOnBitmap(CircleF circle, Bitmap bitmap, Color color)
@@ -114,7 +109,6 @@ namespace LaloLibrary.Geometry
                 }
             }
             return bitmap;
-
         }
 
         public static void DrawPerimeterOnBitmap(Bitmap bitmap, int grosor, Color color)

@@ -1,12 +1,12 @@
-﻿using System.Text;
+﻿using LaloLibrary.DataStructures;
+using System.Text;
 using System.Text.RegularExpressions;
-using LaloLibrary.DataStructures;
 
 namespace LaloLibrary.Utils
 {
-    public class StringUtils
+    public static class StringUtils
     {
-        public static string InvertString(string input)
+        public static string InvertString(this string input)
         {
             LinkedStack<char> stack = new();
 

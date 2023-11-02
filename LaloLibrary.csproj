@@ -6,9 +6,9 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>LaloLibrary</Title>
-    <Version>1.0.0</Version> 
-    <Authors>CristianLaimon, AlbertoRodRios</Authors>
-    <Description>A simple library made for winforms applications and some utilities for C#.</Description>
+    <Version>1.0.1</Version> 
+    <Authors>CristianLaimon, AlbertoRodRios, Raul Mendez</Authors>
+    <Description>A simple library made for c# applications for general purpose with quolity of life (QOL) algotythms, reinvented algorythms and a section of utilities for winforms applications.</Description>
     <Copyright>MIT</Copyright>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
