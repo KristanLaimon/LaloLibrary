@@ -1,112 +1,203 @@
 ﻿using LaloLibrary.DataStructures;
+using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using System.Windows.Forms;
 
 namespace LaloLibrary.DataStuctures
 {
     public class LinkedCircularList<T>
     {
-        private Node<T> beginning, end;
+        private Node<T> first, last;
 
         public LinkedCircularList()
         { }
 
-        public void Add(T value)
+        public void Add(params T[] values)
         {
-            Node<T> newNode = new Node<T>(value);
-
-            if (beginning == null)
+            foreach(T value in values)
             {
-                beginning = end = newNode;
-                newNode.NextNode = beginning;
-            }
-            else
-            {
-                newNode.NextNode = beginning;
-                end.NextNode = newNode;
-                end = newNode;
-            }
-        }
+                Node<T> newNode = new Node<T>(value);
 
-        public void AddBefore(T value, T wall)
-        {
-            Node<T> first;
-            Node<T> second;
-        }
-
-        public void AddAfter()
-        {
-        }
-
-        public void Desplegar(ListBox L)
-        {
-            Node<T> actualNode;
-            if (beginning == null)
-            {
-                throw new Exception("No existe ninguna lista ciruclar");
-            }
-            else
-            {
-                actualNode = beginning;
-                L.Items.Clear();
-
-                do
+                if (first == null)
                 {
-                    L.Items.Add(actualNode.Data);
-                    actualNode = actualNode.NextNode;
-                } while (actualNode != beginning);
-            }
-        }
-
-        public void DesplegarInverso(ListBox L)
-        {
-            if (beginning == null)
-            {
-                throw new Exception("No hay lista");
-            }
-            else
-            {
-                Node<T> wall;
-                Node<T> pointer;
-
-                L.Items.Clear();
-                //Usando los 2 punteros principalmente
-            }
-        }
-
-        public void Remove(T value)
-        {
-            Node<T> p, q;
-            if (beginning != null)
-            {
-                p = beginning;
-                q = end;
-
-                do
+                    first = last = newNode;
+                    newNode.NextNode = first;
+                }
+                else
                 {
-                    if (p.Data.Equals(value))
+                    newNode.NextNode = first;
+                    last.NextNode = newNode;
+                    last = newNode;
+                }
+            }
+        }
+
+        public bool AddAfter(T numberToStop, T numberAfter)
+        {
+            if (IsEmpty()) return false;
+
+            Node<T> pointer = first;
+
+            do
+            {
+                if (pointer.Data.Equals(numberToStop))
+                {
+                    Node<T> nextNode = pointer.NextNode;
+                    Node<T> newNode = new Node<T>(numberAfter);
+
+                    pointer.NextNode = newNode;
+                    newNode.NextNode = nextNode;
+
+                    return true;
+                }
+                pointer = pointer.NextNode;
+
+            } while (pointer != first);
+            return false;
+        }
+
+        public bool AddBefore(T numberToStop, T numberBehind)
+        {
+            if (IsEmpty()) return false;
+
+            Node<T> pointer = first;
+            Node<T> beforePointer = null;
+
+            do
+            {
+                if (pointer.Data.Equals(numberToStop))
+                {
+                    Node<T> newFirstNode = new Node<T>(numberBehind);
+
+                    if (beforePointer == null)
                     {
-                        if (p == beginning)
-                        {
-                            if (beginning.NextNode == beginning)
-                                beginning = end = null;
-                            else
-                            {
-                                beginning = beginning.NextNode;
-                                q.NextNode = beginning;
-                            }
-                        }
+                        newFirstNode.NextNode = first;
+                        first = newFirstNode;
+                        last.NextNode = newFirstNode;
                     }
                     else
                     {
-                        if (p != end)
-                            end = q;
-                        q.NextNode = p.NextNode;
+                        beforePointer.NextNode = newFirstNode;
+                        newFirstNode.NextNode = pointer;
                     }
+                    return true;
+                }
+                beforePointer = pointer;
+                pointer = pointer.NextNode;
 
-                    p.NextNode = null;
-                    p = beginning;
-                } while (p != beginning);
+            } while (pointer != first);
+            return false;
+        }
+        public int Count()
+        {
+            if(!IsEmpty())
+            {
+                Node<T> tempPointer = first;
+                int count = 0;
+
+                do
+                {
+                    count++;
+                    tempPointer = tempPointer.NextNode;
+
+                } while (tempPointer != first);
+
+                return count;
             }
+            else
+                return 0;
+        }
+
+        public bool Contains(T value)
+        {
+            if (IsEmpty()) return false;
+
+            Node<T> pointer = first;
+            do
+            {
+                if (pointer.Data.Equals(value))
+                {
+                    return true;
+                }
+                else
+                {
+                    pointer = pointer.NextNode;
+                }
+            
+            }while( pointer != first);
+            return false;
+        }
+        
+        public T[] MakeToArray()
+        {
+            T[] array = new T[Count()];
+            Node<T> tempPointer = first;
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = tempPointer.Data;
+                tempPointer = tempPointer.NextNode;
+            }
+            return array;
+        }
+
+        public bool Remove(T value)
+        {
+            Node<T> pointer = first;
+            Node<T> beforePointer = null;
+
+            do
+            {
+                if(pointer.Data.Equals(value))
+                {
+                    if(beforePointer == null)
+                    {
+                        first = first.NextNode;
+                        last.NextNode = first;
+                    }
+                    else
+                    {
+                        beforePointer.NextNode = pointer.NextNode;
+                    }
+                    return true;
+                }
+                beforePointer = pointer;
+                pointer = pointer.NextNode;
+            } while (pointer != first);
+            return false;
+        }
+
+        public void RemoveLast()
+        {
+            Node<T> pointer = first;
+            Node<T> beforePointer = null;
+
+            do
+            {
+                if(IsEmpty())
+                {
+                    return;
+                }
+                else
+                if(pointer == last && pointer == first)
+                {
+                    Remove(pointer.Data);
+                    last = first = null;
+                }
+                else if(pointer == last)
+                {
+                    beforePointer.NextNode = first;
+                    beforePointer = last;
+                }
+
+                beforePointer = pointer;
+                pointer = pointer.NextNode;
+
+            } while (pointer != first);
+        }
+
+        public bool IsEmpty()
+        {
+            return first == null && last == null;
         }
     }
 }
