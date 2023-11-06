@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-
-namespace LaloLibrary.DataStuctures
+﻿namespace LaloLibrary.DataStuctures
 {
     //Circular Queue
     internal class LQueue<T>
     {
-        T[] array;
-        int first = -1;
-        int last = -1;
-        int count;
+        private T[] array;
+        private int first = -1;
+        private int last = -1;
+        private int count;
 
         public LQueue(uint size)
         {
@@ -47,13 +40,13 @@ namespace LaloLibrary.DataStuctures
 
         public T Dequeue()
         {
-            if(CheckIfEmpty())
+            if (CheckIfEmpty())
             {
                 throw new Exception("La cola está vacía, no se puede usar Dequeue a ella");
             }
             else
             {
-                if(first == array.Length -1)//array.Length-1 = Max
+                if (first == array.Length - 1)//array.Length-1 = Max
                 {
                     T temp = array[first];
                     array[first] = default(T);

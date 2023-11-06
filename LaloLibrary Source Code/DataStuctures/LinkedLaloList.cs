@@ -1,18 +1,11 @@
 ﻿using LaloLibrary.DataStructures;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LaloLibrary.DataStuctures
 {
     //The challenge is make it with only one Node<T> reference node!
     public class LinkedLaloList<T>
     {
-        Node<T> first;
+        private Node<T> first;
 
         public LinkedLaloList()
         { }
@@ -20,14 +13,14 @@ namespace LaloLibrary.DataStuctures
         public void Add(T newData)
         {
             Node<T> newNode = new Node<T>(newData);
-            if(IsEmpty())
+            if (IsEmpty())
             {
                 first = newNode;
             }
             else
             {
                 Node<T> tempPointer = first;
-                while(tempPointer.NextNode != null)
+                while (tempPointer.NextNode != null)
                 {
                     tempPointer = tempPointer.NextNode;
                 }
@@ -44,7 +37,7 @@ namespace LaloLibrary.DataStuctures
             {
                 if (tempPointer.Data.Equals(dataToRemove))
                 {
-                    if(tempPointer == first)
+                    if (tempPointer == first)
                     {
                         first = tempPointer.NextNode;
                     }
@@ -67,7 +60,7 @@ namespace LaloLibrary.DataStuctures
         {
             Node<T> tempPointer = first;
             int count = 0;
-            while( tempPointer != null)
+            while (tempPointer != null)
             {
                 count++;
                 tempPointer = tempPointer.NextNode;

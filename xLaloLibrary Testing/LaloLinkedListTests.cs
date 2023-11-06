@@ -1,13 +1,10 @@
 using FluentAssertions;
-using LaloLibrary.DataStructures;
 using LaloLibrary.DataStuctures;
-using System.Drawing.Text;
 
 namespace xLaloLibrary_Testing
 {
     public class LaloLinkedListTests
     {
-
         [Fact]
         public void LaloLinkedList_RemoveFirstOne_ShouldWorkProperly()
         {
@@ -45,5 +42,4 @@ namespace xLaloLibrary_Testing
             list.RemoveFirstOne(10).Should().BeFalse();
         }
     }
-
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LaloLibrary.DataStuctures
+﻿namespace LaloLibrary.DataStuctures
 {
     internal class LStack<T>
     {
@@ -28,25 +22,25 @@ namespace LaloLibrary.DataStuctures
 
         public void Push(T newInt)
         {
-            if(CheckIfFull()) throw new Exception("overflow exception en krstackint");
+            if (CheckIfFull()) throw new Exception("overflow exception en krstackint");
 
             top++;
             Stack[Top] = newInt;
         }
-        
+
         public T Pop()
         {
             if (CheckIfEmpty()) throw new Exception("SubOverflow exception, no hay elementos para quitar de la pila");
-            
+
             T temp = Stack[Top];
             Stack[Top] = default(T);
             top--;
             return temp;
-        } 
-        
+        }
+
         public T Peek()
         {
-            if(Top != -1)
+            if (Top != -1)
             {
                 return Stack[Top];
             }
@@ -64,6 +58,5 @@ namespace LaloLibrary.DataStuctures
             if (Top == Stack.Length - 1) return true;
             return false;
         }
-
     }
 }
