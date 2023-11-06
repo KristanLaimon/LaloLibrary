@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace LaloLibrary.DataStuctures
 {
     //The challenge is make it with only one Node<T> reference node!
-    public class LaloLinkedList<T>
+    public class LinkedLaloList<T>
     {
         Node<T> first;
 
-        public LaloLinkedList()
+        public LinkedLaloList()
         { }
 
         public void Add(T newData)

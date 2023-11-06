@@ -11,7 +11,7 @@ namespace xLaloLibrary_Testing
         [Fact]
         public void LaloLinkedList_RemoveFirstOne_ShouldWorkProperly()
         {
-            LaloLinkedList<int> list = new();
+            LinkedLaloList<int> list = new();
             list.Add(1);
             list.Add(2);
             list.Add(3);
