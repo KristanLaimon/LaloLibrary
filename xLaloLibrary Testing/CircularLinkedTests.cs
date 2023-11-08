@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using LaloLibrary.DataStuctures;
+using Polynomials_Evaluator.CañedoDependencies;
 
 namespace xLaloLibrary_Testing
 {

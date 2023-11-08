@@ -1,11 +1,9 @@
 ﻿using LaloLibrary.DataStructures;
-using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
-using System.Windows.Forms;
+using System.Collections;
 
 namespace LaloLibrary.DataStuctures
 {
-    public class LinkedCircularList<T>
+    public class LinkedCircularList<T> : IEnumerable<T>
     {
         private Node<T> first, last;
 
@@ -14,7 +12,7 @@ namespace LaloLibrary.DataStuctures
 
         public void Add(params T[] values)
         {
-            foreach(T value in values)
+            foreach (T value in values)
             {
                 Node<T> newNode = new Node<T>(value);
 
@@ -51,7 +49,6 @@ namespace LaloLibrary.DataStuctures
                     return true;
                 }
                 pointer = pointer.NextNode;
-
             } while (pointer != first);
             return false;
         }
@@ -84,13 +81,13 @@ namespace LaloLibrary.DataStuctures
                 }
                 beforePointer = pointer;
                 pointer = pointer.NextNode;
-
             } while (pointer != first);
             return false;
         }
+
         public int Count()
         {
-            if(!IsEmpty())
+            if (!IsEmpty())
             {
                 Node<T> tempPointer = first;
                 int count = 0;
@@ -99,7 +96,6 @@ namespace LaloLibrary.DataStuctures
                 {
                     count++;
                     tempPointer = tempPointer.NextNode;
-
                 } while (tempPointer != first);
 
                 return count;
@@ -123,13 +119,14 @@ namespace LaloLibrary.DataStuctures
                 {
                     pointer = pointer.NextNode;
                 }
-            
-            }while( pointer != first);
+            } while (pointer != first);
             return false;
         }
-        
+
         public T[] MakeToArray()
         {
+            if (IsEmpty()) return new T[0];
+
             T[] array = new T[Count()];
             Node<T> tempPointer = first;
             for (int i = 0; i < array.Length; i++)
@@ -147,9 +144,9 @@ namespace LaloLibrary.DataStuctures
 
             do
             {
-                if(pointer.Data.Equals(value))
+                if (pointer.Data.Equals(value))
                 {
-                    if(beforePointer == null)
+                    if (beforePointer == null)
                     {
                         first = first.NextNode;
                         last.NextNode = first;
@@ -173,17 +170,17 @@ namespace LaloLibrary.DataStuctures
 
             do
             {
-                if(IsEmpty())
+                if (IsEmpty())
                 {
                     return;
                 }
                 else
-                if(pointer == last && pointer == first)
+                if (pointer == last && pointer == first)
                 {
                     Remove(pointer.Data);
                     last = first = null;
                 }
-                else if(pointer == last)
+                else if (pointer == last)
                 {
                     beforePointer.NextNode = first;
                     beforePointer = last;
@@ -191,13 +188,76 @@ namespace LaloLibrary.DataStuctures
 
                 beforePointer = pointer;
                 pointer = pointer.NextNode;
-
             } while (pointer != first);
         }
 
         public bool IsEmpty()
         {
             return first == null && last == null;
+        }
+
+        public void Clear() => first = last = null;
+
+        public T this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= Count())
+                {
+                    throw new IndexOutOfRangeException("Index is out of range - Get");
+                }
+
+                Node<T> pointer = first;
+                for (int i = 0; i < index; i++)
+                {
+                    pointer = pointer.NextNode;
+                }
+
+                return pointer.Data;
+            }
+
+            set
+            {
+                if (index < 0 || index >= Count())
+                {
+                    throw new IndexOutOfRangeException("Index is out of range - Set");
+                }
+
+                Node<T> pointer = first;
+                for (int i = 0; i < index; i++)
+                {
+                    pointer = pointer.NextNode;
+                }
+
+                pointer.Data = value;
+            }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            Node<T> current = first;
+
+            if (IsEmpty())
+            {
+                yield break;
+            }
+
+            do
+            {
+                yield return current.Data;
+                current = current.NextNode;
+            } while (current != first);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public static LinkedCircularList<T> operator +(LinkedCircularList<T> list1, LinkedCircularList<T> list2)
+        {
+            list1.Add(list2.MakeToArray());
+            return list1;
         }
     }
 }
