@@ -1,7 +1,7 @@
 ﻿using LaloLibrary.DataStructures;
 using System.Collections;
 
-namespace LaloLibrary.DataStuctures
+namespace LaloLibrary.DataStructures
 {
     public class LinkedCircularList<T> : IEnumerable<T>
     {

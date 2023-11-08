@@ -1,4 +1,4 @@
-﻿namespace LaloLibrary.DataStuctures
+﻿namespace LaloLibrary.DataStructures
 {
     internal class LStack<T>
     {

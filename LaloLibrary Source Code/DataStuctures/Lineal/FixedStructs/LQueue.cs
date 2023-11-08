@@ -1,4 +1,4 @@
-﻿namespace LaloLibrary.DataStuctures
+﻿namespace LaloLibrary.DataStructures
 {
     //Circular Queue
     internal class LQueue<T>

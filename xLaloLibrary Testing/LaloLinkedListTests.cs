@@ -1,5 +1,5 @@
 using FluentAssertions;
-using LaloLibrary.DataStuctures;
+using LaloLibrary.DataStructures;
 
 namespace xLaloLibrary_Testing
 {

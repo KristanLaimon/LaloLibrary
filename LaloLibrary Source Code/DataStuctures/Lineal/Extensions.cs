@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaloLibrary.DataStuctures.Lineal
+namespace LaloLibrary.DataStructures.Lineal
 {
     public static class Extensions
     {

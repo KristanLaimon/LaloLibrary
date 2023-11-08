@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using Polynomials_Evaluator.CañedoDependencies;
+using LaloLibrary.DataStructures;
 
 namespace xLaloLibrary_Testing
 {
@@ -24,18 +24,18 @@ namespace xLaloLibrary_Testing
         [InlineData(new int[] { 1, 2, 3, 4, 5 }, 5, new int[] { 1, 2, 3, 4 }, true)]
         [InlineData(new int[] { 1, 2, 3, 4, 5 }, 1, new int[] { 2, 3, 4, 5 }, true)]
         [InlineData(new int[] { 1, 2, 3, 4, 5 }, 6, new int[] { 1, 2, 3, 4, 5 }, false)]
-        private void Remove(int[] input, int remove, int[] output, bool shouldbe)
+        private void Remove(int[] input, int remove, int[] output, bool boolean)
         {
             circularList.Add(input);
-            circularList.Remove(remove).Should().Be(shouldbe);
+            circularList.Remove(remove).Should().Be(boolean);
             circularList.MakeToArray().Should().BeEquivalentTo(output);
         }
 
         [Theory]
-        [InlineData(new int[] { 1, 2, 3, 4, 5 },new int[] { 1, 2, 3, 4})]
-        [InlineData(new int[] { 1, 2, 3},new int[] { 1, 2})]
-        [InlineData(new int[] { 1 },new int[] { })]
-        [InlineData(new int[] {},new int[] {})]
+        [InlineData(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 })]
+        [InlineData(new int[] { 1, 2, 3 }, new int[] { 1, 2 })]
+        [InlineData(new int[] { 1 }, new int[] { })]
+        [InlineData(new int[] { }, new int[] { })]
         private void RemoveLast(int[] input, int[] output)
         {
             circularList.Add(input);
@@ -77,6 +77,74 @@ namespace xLaloLibrary_Testing
         {
             circularList.Add(input);
             circularList.Contains(numberToFind).Should().Be(boolean);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4, 5 })]
+        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
+        [InlineData(new int[] { 1 })]
+        [InlineData(new int[] { })]
+        private void Clear(int[] input)
+        {
+            circularList.Clear();
+            circularList.MakeToArray().Should().BeEquivalentTo(
+                new int[]
+                {
+
+                }
+                );
+            circularList.Count().Should().Be(0);
+            circularList.IsEmpty().Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4, 5 })]
+        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
+        [InlineData(new int[] { 1 })]
+        [InlineData(new int[] { })]
+        private void Clear2(int[] input)
+        {
+            circularList.Clear();
+            circularList.MakeToArray().Should().BeEquivalentTo(
+                new int[]
+                {
+
+                }
+                );
+            circularList.Count().Should().Be(0);
+            circularList.IsEmpty().Should().BeTrue();
+
+            circularList.Add(1, 2, 3);
+            circularList.MakeToArray().Should().BeEquivalentTo(
+                new int[]
+                {
+                    1,2,3
+                }
+                );
+            circularList.Count().Should().Be(3);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4, 5 })]
+        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
+        [InlineData(new int[] { 1 })]
+        [InlineData(new int[] { })]
+        private void UseIndex(int[] input)
+        {
+            circularList.Add(input);
+
+            if (circularList.Count() != 0)
+            {
+                circularList[0].Should().Be(1);
+                Action action2 = () => circularList[10].Should();
+                action2.Should().Throw<IndexOutOfRangeException>();
+
+            }
+            else
+            {
+                Action action = () => circularList[0].Should();
+                action.Should().Throw<IndexOutOfRangeException>();
+            }
         }
 
     }
