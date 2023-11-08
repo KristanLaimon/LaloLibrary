@@ -139,6 +139,8 @@ namespace LaloLibrary.DataStructures
 
         public bool Remove(T value)
         {
+            if (IsEmpty()) return false;
+
             Node<T> pointer = first;
             Node<T> beforePointer = null;
 
