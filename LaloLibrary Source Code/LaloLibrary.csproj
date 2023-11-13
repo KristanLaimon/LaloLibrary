@@ -12,8 +12,10 @@
     <Copyright>MIT</Copyright>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/CristianLaimon/LaloLibrary</RepositoryUrl>
-    <PackageReleaseNotes>Update with new QOL utils</PackageReleaseNotes>
+    <PackageReleaseNotes>This update bring a new fresh image for this library (only aesthetic changes)</PackageReleaseNotes>
     <PackageTags>simple</PackageTags>
+    <PackageIcon>NugetStuff\laloimage.png</PackageIcon>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
     
 	<PropertyGroup>
