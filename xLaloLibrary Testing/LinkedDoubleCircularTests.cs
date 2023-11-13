@@ -151,5 +151,26 @@ namespace xLaloLibrary_Testing
         //    }
         //}
 
+        [Fact]
+        private void Inverse()
+        {
+            circularList.Add(1);
+            circularList.Add(2);
+            circularList.Add(3);
+            circularList.Add(4);
+            circularList.Add(5);
+
+            circularList.InverseList();
+
+            circularList.MakeToArray().Should().NotBeEmpty();
+            circularList.MakeToArray().Should().BeInDescendingOrder();
+            circularList.MakeToArray().Should().BeEquivalentTo(
+                new int[]
+                {
+                    5,4,3,2,1
+                }
+                );
+        }
+
     }
 }

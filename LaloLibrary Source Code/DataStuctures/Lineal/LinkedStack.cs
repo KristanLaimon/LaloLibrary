@@ -7,9 +7,6 @@ namespace LaloLibrary.DataStructures
         private short count;
         private Node<T> topNode;
 
-        public LinkedStack()
-        { }
-
         public void Push(T newContent)
         {
             if (topNode == null)

@@ -1,8 +1,10 @@
 ﻿using System.Drawing;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
 
 namespace LaloLibrary.Forms.Utils
 {
+    [SupportedOSPlatform(platformName:"Windows")]
     public class BitmapUtils
     {
         public static void UpdatePictureBox(PictureBox picturebox, Bitmap bitmap) => picturebox.Image = bitmap;

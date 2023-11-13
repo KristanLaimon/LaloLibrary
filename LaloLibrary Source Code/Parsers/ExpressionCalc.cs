@@ -26,7 +26,9 @@ namespace LaloLibrary.Parsers
             }
             catch (ParserException ex)
             {
-                throw new CalcException($"Error at: EvaluatePrefix()->|||ConvertToInfix --->MessageParserException:{ex.Message}||| from CalcExpression class");
+                throw new CalcException(
+                    $"Error at: EvaluatePrefix()->|||ConvertToInfix --->MessageParserException:{ex.Message}||| " +
+                    $"from CalcExpression class");
             }
 
             infix = infix.Replace(" ", "");

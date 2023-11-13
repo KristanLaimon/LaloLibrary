@@ -10,14 +10,12 @@
     <Authors>CristianLaimon, AlbertoRodRios, Raul Mendez</Authors>
     <Description>A simple library made for c# applications for general purpose with quolity of life (QOL) algotythms, reinvented algorythms and a section of utilities for winforms applications.</Description>
     <Copyright>MIT</Copyright>
-    <PackageProjectUrl></PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/CristianLaimon/LaloLibrary</RepositoryUrl>
     <PackageReleaseNotes>Update with new QOL utils</PackageReleaseNotes>
     <PackageTags>simple</PackageTags>
-    <PackageIcon></PackageIcon>
   </PropertyGroup>
-
+    
 	<PropertyGroup>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>

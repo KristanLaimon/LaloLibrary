@@ -229,6 +229,30 @@ namespace LaloLibrary.DataStuctures
             return GetEnumerator();
         }
 
+        public void InverseList()
+        {
+            if (IsEmpty()) return;
+
+            DualNode<T> current = first;
+            do
+            {
+                // Intercambia los nodos de siguiente y anterior
+                DualNode<T> temp = current.NextNode;
+                current.NextNode = current.BackNode;
+                current.BackNode = temp;
+
+                // Mueve al siguiente nodo
+                current = current.BackNode;
+
+            } while (current != first);
+
+            // Actualiza el puntero al primer nodo
+            first = first.BackNode;
+        }
+
+
+
+
         public T this[int index]
         {
             get
