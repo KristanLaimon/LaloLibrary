@@ -14,9 +14,13 @@
     <RepositoryUrl>https://github.com/CristianLaimon/LaloLibrary</RepositoryUrl>
     <PackageReleaseNotes>This update bring a new fresh image for this library (only aesthetic changes)</PackageReleaseNotes>
     <PackageTags>simple</PackageTags>
-    <PackageIcon>NugetStuff\laloimage.png</PackageIcon>
+    <PackageIcon>lalo.png</PackageIcon>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
+
+    <ItemGroup>
+        <None Include=".\lalo.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
     
 	<PropertyGroup>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -31,6 +35,10 @@
 		<None Include="..\README.md" Pack="true" PackagePath="\" />
 		
 		<None Remove="nuget.exe" />
+		
+		<None Update="lalo.png">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
 		
 	</ItemGroup>
 
@@ -51,6 +59,10 @@
     <None Update="README.md">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="nuget\" />
   </ItemGroup>
 	
 </Project>
