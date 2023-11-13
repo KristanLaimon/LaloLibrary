@@ -14,6 +14,14 @@ namespace LaloLibrary.DataStuctures
         private DualNode<T> first;
 
         public LinkedDoubleCircularList() { }
+        
+        public void Add(LinkedDoubleCircularList<T> list)
+        {
+            foreach (T data in list)
+            {
+                Add(data);
+            }
+        }
 
         public void Add(params T[] arrayData)
         {
@@ -162,6 +170,39 @@ namespace LaloLibrary.DataStuctures
             return count;
         }
 
+        public bool Replace(T dataToReplace, T  Data)
+        {
+            if (IsEmpty()) return false;
+
+            int foundIndex = GetIindexAt(dataToReplace);
+
+            if (foundIndex == -1) return false;
+            
+            this[foundIndex] = Data;
+            return true;
+        }
+        
+        public int GetIindexAt(T data)
+        {
+            if (IsEmpty()) return -1;
+
+            int index = 0;
+            DualNode<T> pointer = first;
+            do
+            {
+                if (pointer.Data.Equals(data))
+                {
+
+                    return index;
+                }
+
+                index++;
+                pointer = pointer.NextNode;
+            } while (pointer != first);
+
+            return -1;
+        }
+        
         public bool IsEmpty()
         {
             return first == null;

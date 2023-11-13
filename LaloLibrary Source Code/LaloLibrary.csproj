@@ -39,6 +39,9 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <Reference Include="LaloCloning">
+      <HintPath>LaloDependencies\LaloCloning.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms">
       <HintPath>Reference\System.Windows.Forms.dll</HintPath>
     </Reference>
