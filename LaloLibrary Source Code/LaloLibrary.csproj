@@ -6,13 +6,13 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>LaloLibrary</Title>
-    <Version>1.2.0</Version> 
+    <Version>1.2.1</Version> 
     <Authors>CristianLaimon, AlbertoRodRios, Raul Mendez</Authors>
     <Description>A simple library made for c# applications for general purpose with quolity of life (QOL) algotythms, reinvented algorythms and a section of utilities for winforms applications.</Description>
     <Copyright>MIT</Copyright>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/CristianLaimon/LaloLibrary</RepositoryUrl>
-    <PackageReleaseNotes>This update bring a new fresh image for this library (only aesthetic changes)</PackageReleaseNotes>
+    <PackageReleaseNotes>Lalo Maths Update: Now it has a polynomial calculator and added improves to data structures</PackageReleaseNotes>
     <PackageTags>simple</PackageTags>
     <PackageIcon>lalo.png</PackageIcon>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
