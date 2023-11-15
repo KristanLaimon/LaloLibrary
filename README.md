@@ -1,12 +1,17 @@
 # Lalo Library
 
+<div>
+	<img src ="lalosourcecode/lalo.png"></img>
+</div>
+
 A simple library made for c# applications for general purpose with quolity of life (QOL) algotythms, reinvented algorythms and a section of utilities for winforms applications.
 
 This contains:
 - QOL classes to work with basic engineering (geometry, calculus, physics, etc..)
-- Algorythms to work with basic data like strings, arrays, and more comfortable facilites
-- Reinvented some essential concepts from basic data structures (stacks,queues and more for learning)
+- Algorythms to work with basic data like strings, arrays, and more comfortable functions
+- Reinvented some essential concepts from basic data structures (stacks, queues and more for learning)
 - Methods to handle figures drawing on winforms applications better than the default way to do it.
+- String parser classes
 
 But more important: this wiil be a small compendium of all the algorithms that I have made myself and other friends of mine to make our life easier in our travel to improve our coding skill. 
 
@@ -33,17 +38,21 @@ Lalolibrary
 
 {
 
-    **Lalolibrary.Physics**
-
-    **Lalolibrary.Geometry**
+    **Lalolibrary.DataStructures**
 
     **Lalolibrary.Exceptions**
 
     **Lalolibrary.Forms.Utils**
 
-    **Lalolibrary.Utils**
+    **Lalolibrary.Geometry**
 
-    **Lalolibrary.Parsers**
+    **Lalolibrary.Maths**
+
+    **Lalolibrary.Parsers**
+
+    **Lalolibrary.Physics**
+
+    **Lalolibrary.Utils**
 
 }
 
