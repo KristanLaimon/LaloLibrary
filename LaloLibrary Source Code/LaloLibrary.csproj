@@ -43,9 +43,6 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <Reference Include="LaloCloning">
-      <HintPath>LaloDependencies\LaloCloning.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Forms">
       <HintPath>Reference\System.Windows.Forms.dll</HintPath>
     </Reference>
@@ -55,10 +52,6 @@
     <None Update="README.md">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="nuget\" />
   </ItemGroup>
 	
 </Project>

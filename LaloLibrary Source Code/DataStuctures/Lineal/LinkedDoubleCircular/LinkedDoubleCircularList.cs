@@ -270,28 +270,26 @@ namespace LaloLibrary.DataStuctures
             return GetEnumerator();
         }
 
-        public void InverseList()
-        {
-            if (IsEmpty()) return;
+        //public void InverseList()
+        //{
+        //    if (IsEmpty()) return;
 
-            DualNode<T> current = first;
-            do
-            {
-                // Intercambia los nodos de siguiente y anterior
-                DualNode<T> temp = current.NextNode;
-                current.NextNode = current.BackNode;
-                current.BackNode = temp;
+        //    DualNode<T> current = first;
+        //    do
+        //    {
+        //        // Intercambia los nodos de siguiente y anterior
+        //        DualNode<T> temp = current.NextNode;
+        //        current.NextNode = current.BackNode;
+        //        current.BackNode = temp;
 
-                // Mueve al siguiente nodo
-                current = current.BackNode;
+        //        // Mueve al siguiente nodo
+        //        current = current.BackNode;
 
-            } while (current != first);
+        //    } while (current != first);
 
-            // Actualiza el puntero al primer nodo
-            first = first.BackNode;
-        }
-
-
+        //    // Actualiza el puntero al primer nodo
+        //    first = first.BackNode;
+        //}
 
 
         public T this[int index]
@@ -325,5 +323,14 @@ namespace LaloLibrary.DataStuctures
             list1.Add(list2.MakeToArray());
             return list1;
         }
+        
+        public override string ToString()
+        {
+            StringBuilder sb = new();
+            T[] thisItems = MakeToArray();
+            string itemsSepatared = string.Join(", ", thisItems);
+            return itemsSepatared;
+        }
+
     }
 }

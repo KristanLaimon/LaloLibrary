@@ -1,10 +1,22 @@
 using FluentAssertions;
 using LaloLibrary.DataStructures;
+using LaloLibrary.Maths;
 
-namespace xLaloLibrary_Testing
+namespace DataStructures
 {
     public class LaloLinkedListTests
     {
+        [Fact]
+        public void test()
+        {
+            Monomial monomio = Monomial.Parse("2*X^2");
+            Monomial monomi2 = Monomial.Parse("3*X^2");
+            Monomial monomi3 = Monomial.Parse("5*X^2");
+
+            Monomial result = monomio + monomi2 + monomi3;
+        }
+
+
         [Fact]
         public void LaloLinkedList_RemoveFirstOne_ShouldWorkProperly()
         {

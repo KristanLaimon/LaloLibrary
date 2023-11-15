@@ -43,17 +43,15 @@ namespace LaloLibrary.Maths
 
         public static string FormatPoly(string input)
         {
-            string replacePattern = @"(\d+)\s*([a-zA-Z]+)"; // Asegúrate de que esta expresión regular sea correcta
+            string replacePattern = @"(\d+)\s*([a-zA-Z]+)";
 
             Regex regex = new Regex(replacePattern);
 
             string resultado = regex.Replace(input, match =>
             {
-                // Obtener el coeficiente y la literal
                 string coeficiente = match.Groups[1].Value;
                 string literal = match.Groups[2].Value;
 
-                // Reemplazar con la nueva forma
                 return $"{coeficiente}*{literal}";
             });
 

@@ -1,16 +1,17 @@
 ﻿using FluentAssertions;
-using LaloLibrary.DataStructures;
+using LaloLibrary.DataStuctures;
 
-namespace xLaloLibrary_Testing
+namespace DataStructures
 {
-    public class CircularLinkedTests
+    public class TLinkedDoubleCircular
     {
-        LinkedCircularList<int> circularList = new();
+        private LinkedDoubleCircularList<int> circularList = new();
 
-        [Fact]
-        private void Add()
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3 })]
+        private void Add(int[] input)
         {
-            circularList.Add(1, 2, 3);
+            circularList.Add(input);
 
             circularList.MakeToArray().Should().BeEquivalentTo(
                new int[]
@@ -24,6 +25,7 @@ namespace xLaloLibrary_Testing
         [InlineData(new int[] { 1, 2, 3, 4, 5 }, 5, new int[] { 1, 2, 3, 4 }, true)]
         [InlineData(new int[] { 1, 2, 3, 4, 5 }, 1, new int[] { 2, 3, 4, 5 }, true)]
         [InlineData(new int[] { 1, 2, 3, 4, 5 }, 6, new int[] { 1, 2, 3, 4, 5 }, false)]
+        [InlineData(new int[] { 1 }, 1, new int[] { }, true)]
         private void Remove(int[] input, int remove, int[] output, bool boolean)
         {
             circularList.Add(input);
@@ -90,7 +92,6 @@ namespace xLaloLibrary_Testing
             circularList.MakeToArray().Should().BeEquivalentTo(
                 new int[]
                 {
-
                 }
                 );
             circularList.Count().Should().Be(0);
@@ -108,7 +109,6 @@ namespace xLaloLibrary_Testing
             circularList.MakeToArray().Should().BeEquivalentTo(
                 new int[]
                 {
-
                 }
                 );
             circularList.Count().Should().Be(0);
@@ -124,28 +124,48 @@ namespace xLaloLibrary_Testing
             circularList.Count().Should().Be(3);
         }
 
-        [Theory]
-        [InlineData(new int[] { 1, 2, 3, 4, 5 })]
-        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
-        [InlineData(new int[] { 1 })]
-        [InlineData(new int[] { })]
-        private void UseIndex(int[] input)
+        [Fact]
+        private void UseIndexWithNoElements()
         {
-            circularList.Add(input);
+            bool itCrashes;
+            circularList.Add(new int[] { });
 
-            if (circularList.Count() != 0)
+            try
             {
-                circularList[0].Should().Be(1);
-                Action action2 = () => circularList[10].Should();
-                action2.Should().Throw<IndexOutOfRangeException>();
+                object algo = circularList[0];
+                itCrashes = false;
+            }
+            catch
+            {
+                itCrashes = true;
+            }
 
-            }
-            else
-            {
-                Action action = () => circularList[0].Should();
-                action.Should().Throw<IndexOutOfRangeException>();
-            }
+            itCrashes.Should().BeTrue();
         }
 
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4, 5 }, 2, 1)]
+        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 1, 0)]
+        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 10, 9)]
+        [InlineData(new int[] { 1 }, 2, -1)]
+        [InlineData(new int[] { }, 1, -1)]
+        private void GetIndexAt(int[] input, int intToLookFor, int indexExpected)
+        {
+            circularList.Add(input);
+            circularList.GetIindexAt(intToLookFor).Should().Be(indexExpected);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4, 5 }, 2, 100, true, new int[] { 1, 100, 3, 4, 5 })]
+        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 1, 100, true, new int[] { 100, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
+        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 10, 100, true, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 100 })]
+        [InlineData(new int[] { 1 }, 2, 100, false, new int[] { 1 })]
+        [InlineData(new int[] { }, 1, 100, false, new int[] { })]
+        private void Replace(int[] input, int intTobeReplaced, int newInt, bool boolExpected, int[] listExpected)
+        {
+            circularList.Add(input);
+            circularList.Replace(intTobeReplaced, newInt).Should().Be(boolExpected);
+            circularList.MakeToArray().Should().BeEquivalentTo(listExpected);
+        }
     }
 }

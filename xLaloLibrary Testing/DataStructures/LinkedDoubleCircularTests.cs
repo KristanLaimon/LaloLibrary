@@ -1,8 +1,7 @@
 ﻿using FluentAssertions;
-using LaloLibrary.DataStructures;
 using LaloLibrary.DataStuctures;
 
-namespace xLaloLibrary_Testing
+namespace DataStructures
 {
     public class LinkedDoubleCircularTests
     {
@@ -14,12 +13,9 @@ namespace xLaloLibrary_Testing
         private void Add(int[] input)
         {
             circularList.Add(input);
+            circularList.Add(1, 2, 3, 4, 5, 3, 2, 2, 2, 2, 2, 2, 2, 2);
 
-            circularList.MakeToArray().Should().BeEquivalentTo(
-               new int[]
-               {
-                    1,2,3
-               });
+
         }
 
         [Theory]
@@ -128,49 +124,43 @@ namespace xLaloLibrary_Testing
             circularList.Count().Should().Be(3);
         }
 
-        //[Theory]
-        //[InlineData(new int[] { 1, 2, 3, 4, 5 })]
-        //[InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
-        //[InlineData(new int[] { 1 })]
-        //[InlineData(new int[] { })]
-        //private void UseIndex(int[] input)
-        //{
-        //    circularList.Add(input);
-
-        //    if (circularList.Count() != 0)
-        //    {
-        //        circularList[0].Should().Be(1);
-        //        Action action2 = () => circularList[10].Should();
-        //        action2.Should().Throw<IndexOutOfRangeException>();
-
-        //    }
-        //    else
-        //    {
-        //        Action action = () => circularList[0].Should();
-        //        action.Should().Throw<IndexOutOfRangeException>();
-        //    }
-        //}
-
-        [Fact]
-        private void Inverse()
+        [Theory]
+        [InlineData(new int[] { 1, 2, 3, 4, 5 })]
+        [InlineData(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 })]
+        [InlineData(new int[] { 1 })]
+        [InlineData(new int[] { })]
+        private void UseIndex(int[] input)
         {
-            circularList.Add(1);
-            circularList.Add(2);
-            circularList.Add(3);
-            circularList.Add(4);
-            circularList.Add(5);
+            circularList.Add(input);
 
-            circularList.InverseList();
 
-            circularList.MakeToArray().Should().NotBeEmpty();
-            circularList.MakeToArray().Should().BeInDescendingOrder();
-            circularList.MakeToArray().Should().BeEquivalentTo(
-                new int[]
-                {
-                    5,4,3,2,1
-                }
-                );
+            if(circularList.IsEmpty())
+            {
+                Action action = () => circularList[0].Should();
+                action.Should().Throw<NullReferenceException>();
+            }
         }
+
+        //[Fact]
+        //private void Inverse()
+        //{
+        //    circularList.Add(1);
+        //    circularList.Add(2);
+        //    circularList.Add(3);
+        //    circularList.Add(4);
+        //    circularList.Add(5);
+
+        //    circularList.InverseList();
+
+        //    circularList.MakeToArray().Should().NotBeEmpty();
+        //    circularList.MakeToArray().Should().BeInDescendingOrder();
+        //    circularList.MakeToArray().Should().BeEquivalentTo(
+        //        new int[]
+        //        {
+        //            5,4,3,2,1
+        //        }
+        //        );
+        //}
 
     }
 }

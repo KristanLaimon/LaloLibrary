@@ -1,7 +1,7 @@
-﻿using LaloCloning;
-using LaloLibrary.DataStructures.Lineal;
+﻿using LaloLibrary.DataStructures.Lineal;
 using LaloLibrary.DataStuctures;
 using LaloLibrary.Exceptions;
+using LaloLibrary.Utils;
 
 namespace LaloLibrary.Maths
 {

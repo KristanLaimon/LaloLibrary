@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaloLibrary", "LaloLibrary Source Code\LaloLibrary.csproj", "{4DB72AE3-D041-4F4B-82B3-07BDD9821FAF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xLaloLibrary Testing", "xLaloLibrary Testing\xLaloLibrary Testing.csproj", "{E99D1968-065F-4FB6-817C-01F3674554ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xLaloTest", "xLaloLibrary Testing\xLaloTest.csproj", "{E99D1968-065F-4FB6-817C-01F3674554ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
