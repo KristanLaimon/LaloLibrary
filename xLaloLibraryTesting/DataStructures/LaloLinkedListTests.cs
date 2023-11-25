@@ -16,7 +16,6 @@ namespace DataStructures
             Monomial result = monomio + monomi2 + monomi3;
         }
 
-
         [Fact]
         public void LaloLinkedList_RemoveFirstOne_ShouldWorkProperly()
         {

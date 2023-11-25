@@ -5,11 +5,13 @@ namespace LaloLibrary.Utils
     public static class LaloCloning
     {
         private static readonly MethodInfo CloneMethod = typeof(Object).GetMethod("MemberwiseClone", BindingFlags.NonPublic | BindingFlags.Instance);
+
         private static bool IsPrimitive(this Type type)
         {
             if (type == typeof(String)) return true;
             return (type.IsValueType & type.IsPrimitive);
         }
+
         public static T DeepClone<T>(this T original)
         {
             return (T)Copy((Object)original);
@@ -19,6 +21,7 @@ namespace LaloLibrary.Utils
         {
             return InternalCopy(originalObject, new Dictionary<Object, Object>(new ReferenceEqualityComparer()));
         }
+
         private static Object InternalCopy(Object originalObject, IDictionary<Object, Object> visited)
         {
             if (originalObject == null) return null;
@@ -35,7 +38,6 @@ namespace LaloLibrary.Utils
                     Array clonedArray = (Array)cloneObject;
                     clonedArray.ForEach((array, indices) => array.SetValue(InternalCopy(clonedArray.GetValue(indices), visited), indices));
                 }
-
             }
             visited.Add(originalObject, cloneObject);
             CopyFields(originalObject, visited, cloneObject, typeToReflect);
@@ -71,13 +73,13 @@ namespace LaloLibrary.Utils
         {
             return ReferenceEquals(x, y);
         }
+
         public override int GetHashCode(object obj)
         {
             if (obj == null) return 0;
             return obj.GetHashCode();
         }
     }
-
 
     internal static class ArrayExtensions
     {

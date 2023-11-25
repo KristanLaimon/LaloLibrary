@@ -11,22 +11,24 @@ namespace LaloLibrary.Maths
         private LinkedDoubleCircularList<Monomial> monomials;
         private int degree;
 
-        internal Polynomial() {
+        internal Polynomial()
+        {
             degree = 0;
             monomials = new();
         }
+
         public Polynomial(LinkedDoubleCircularList<Monomial> terms)
         {
             this.monomials = terms;
             degree = GetDegree();
         }
+
         public Polynomial(params Monomial[] monomials)
         {
             LinkedDoubleCircularList<Monomial> tempList = new();
 
-            foreach(Monomial mon in monomials)
+            foreach (Monomial mon in monomials)
             {
-                
                 tempList.Add(mon);
             }
 
@@ -34,31 +36,39 @@ namespace LaloLibrary.Maths
             degree = GetDegree();
         }
 
-        public LinkedDoubleCircularList<Monomial> Monomials { get { return monomials; } }
-        public int Degree { get { return degree; } }
+        public LinkedDoubleCircularList<Monomial> Monomials
+        { get { return monomials; } }
+        public int Degree
+        { get { return degree; } }
 
         #region Operators Methods
+
         public static Polynomial operator +(Polynomial left, Polynomial right)
         {
             return Sum(left, right);
         }
+
         public static Polynomial operator -(Polynomial left, Polynomial right)
         {
             return Substract(left, right);
         }
+
         public static Polynomial operator /(Polynomial left, Polynomial right)
         {
             return Divide(left, right, out Polynomial reminder);
         }
+
         public static Polynomial operator %(Polynomial left, Polynomial right)
         {
             Divide(left, right, out Polynomial reminder);
             return reminder;
         }
+
         public static Polynomial operator *(Polynomial left, Polynomial right)
         {
             return Multiply(left, right);
         }
+
         private static Polynomial Sum(Polynomial left, Polynomial right)
         {
             left = left.Simplify();
@@ -70,14 +80,16 @@ namespace LaloLibrary.Maths
 
             return bothTogether;
         }
+
         private static Polynomial Substract(Polynomial left, Polynomial right)
         {
             right = right.ToNegative();
             return left + right;
         }
+
         private static Polynomial Divide(Polynomial dividend, Polynomial divisor, out Polynomial remainder)
         {
-			if (dividend == null) throw new ArgumentNullException(nameof(dividend));
+            if (dividend == null) throw new ArgumentNullException(nameof(dividend));
             if (divisor == null) throw new ArgumentNullException(nameof(divisor));
 
             dividend = dividend.SortByExponent();
@@ -86,7 +98,7 @@ namespace LaloLibrary.Maths
             divisor = divisor.SortByExponent();
             divisor = divisor.SortByABCeveryMonomial();
 
-            if(divisor.Degree > dividend.Degree)
+            if (divisor.Degree > dividend.Degree)
             {
                 remainder = new Polynomial();
                 return dividend.DeepClone();
@@ -106,7 +118,7 @@ namespace LaloLibrary.Maths
                 quotient.SortByExponent();
                 rem[rightDegree + i] = 0;
 
-                for (int j = rightDegree + i -1; j >= i; j--)
+                for (int j = rightDegree + i - 1; j >= i; j--)
                 {
                     rem[j] = rem[j] - (quotient[i] * divisor[j - i]);
                     rem = rem.SortByExponent();
@@ -119,13 +131,14 @@ namespace LaloLibrary.Maths
             remainder = rem.DeepClone();
             return quotient.DeepClone();
         }
+
         private static Polynomial Multiply(Polynomial left, Polynomial right)
         {
             LinkedDoubleCircularList<Monomial> all = new();
 
-            foreach(Monomial leftM in left.monomials)
+            foreach (Monomial leftM in left.monomials)
             {
-                foreach(Monomial rightM in right.monomials)
+                foreach (Monomial rightM in right.monomials)
                 {
                     all.Add(leftM * rightM);
                 }
@@ -135,7 +148,8 @@ namespace LaloLibrary.Maths
             polynomial = polynomial.Simplify();
             return polynomial;
         }
-        #endregion
+
+        #endregion Operators Methods
 
         /// <summary>
         /// Gets or sets the coefficient of the term of the specified degree.
@@ -146,12 +160,9 @@ namespace LaloLibrary.Maths
         {
             get
             {
-
-
-
                 Monomial monomial = monomials.FirstOrDefault(t => t.Degree == actualDegree);
 
-                if(monomial == default(Monomial))
+                if (monomial == default(Monomial))
                 {
                     return 0;
                 }
@@ -164,11 +175,11 @@ namespace LaloLibrary.Maths
             {
                 Monomial monomial = monomials.FirstOrDefault(t => t.Literals.Max(x => x.Exponent) == actualDegree);
 
-                if( monomial == default(Monomial))
+                if (monomial == default(Monomial))
                 {
-                    if(value != 0)
+                    if (value != 0)
                     {
-                        Monomial newMonomial = new Monomial(value, new Literal() { Exponent = actualDegree});
+                        Monomial newMonomial = new Monomial(value, new Literal() { Exponent = actualDegree });
                         monomials.Add(newMonomial);
                     }
                 }
@@ -192,6 +203,7 @@ namespace LaloLibrary.Maths
 
             return default(Monomial);
         }
+
         public Polynomial SortByExponentLetter(char charsito)
         {
             charsito = char.ToUpper(charsito);
@@ -201,9 +213,9 @@ namespace LaloLibrary.Maths
             //Find all monomials that contains charsito as literal
             foreach (Monomial mon in thisMons)
             {
-                foreach(Literal lit in mon.Literals)
+                foreach (Literal lit in mon.Literals)
                 {
-                    if(lit.Char == charsito)
+                    if (lit.Char == charsito)
                     {
                         monsFound.Add(mon);
                     }
@@ -215,7 +227,6 @@ namespace LaloLibrary.Maths
             {
                 thisMons.Remove(mon);
             }
-            
 
             //Bubblesort to order monomials by exponent of charsito
             bool thereWasSwaps;
@@ -236,15 +247,15 @@ namespace LaloLibrary.Maths
                         thereWasSwaps = true;
                     }
                 }
-
             } while (thereWasSwaps);
 
             //Convert and organize polynomials, to return the good gone
             Polynomial orderedCharsitos = new Polynomial(monsFound);
             Polynomial orderedNotCharsitos = new Polynomial(thisMons).SortByExponent().SortByABCeveryMonomial();
-            Polynomial finalResult =  Polynomial.Concat(orderedCharsitos, orderedNotCharsitos);
+            Polynomial finalResult = Polynomial.Concat(orderedCharsitos, orderedNotCharsitos);
             return finalResult;
         }
+
         public Polynomial SortByABCeveryMonomial()
         {
             LinkedDoubleCircularList<Monomial> thisMonomials = this.Monomials.DeepClone();
@@ -256,6 +267,7 @@ namespace LaloLibrary.Maths
 
             return new Polynomial(thisMonomials);
         }
+
         public static Polynomial Concat(params Polynomial[] arrayPoly)
         {
             LinkedDoubleCircularList<Monomial> termsTogether = new LinkedDoubleCircularList<Monomial>();
@@ -267,6 +279,7 @@ namespace LaloLibrary.Maths
 
             return new Polynomial(termsTogether);
         }
+
         public static Polynomial Parse(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) { throw new PolynomialException("Input String is Empty"); }
@@ -297,9 +310,9 @@ namespace LaloLibrary.Maths
             }
             return new Polynomial(thisClone);
         }
+
         public Polynomial SortByExponent()
         {
-
             LinkedDoubleCircularList<Monomial> monsCopy = this.monomials.DeepClone();
             LinkedQueue<Monomial> organized = new();
 
@@ -328,6 +341,7 @@ namespace LaloLibrary.Maths
 
             return new Polynomial(toReturnKeepedOrder);
         }
+
         private void RemoveEmptyMonomials()
         {
             bool thereWasEliminations;
@@ -343,9 +357,9 @@ namespace LaloLibrary.Maths
                         break;
                     }
                 }
-
             } while (thereWasEliminations);
         }
+
         public Polynomial ToNegative()
         {
             Polynomial copyThis = this.DeepClone();
@@ -357,6 +371,7 @@ namespace LaloLibrary.Maths
 
             return copyThis;
         }
+
         public Polynomial Simplify()
         {
             Polynomial copyPoly = this.DeepClone();
@@ -395,25 +410,28 @@ namespace LaloLibrary.Maths
                     }
                 }
             } while (thereWereChanges);
-                
+
             return copyPoly;
         }
+
         private int GetDegree()
         {
             int maxDegree = 0;
-            foreach(Monomial m in this.monomials)
+            foreach (Monomial m in this.monomials)
             {
-                if(m.Degree > maxDegree)
+                if (m.Degree > maxDegree)
                 {
                     maxDegree = m.Degree;
                 }
             }
             return maxDegree;
         }
+
         private bool IsEmpty()
         {
             return monomials.Count() == 0;
         }
+
         public string ToHumanizeString()
         {
             if (this.IsEmpty())
@@ -431,13 +449,13 @@ namespace LaloLibrary.Maths
                     {
                         output += "+" + m.ToHumanizeString();
                     }
-                    else if(m.Coefficient < 0)
+                    else if (m.Coefficient < 0)
                     {
                         output += m.ToHumanizeString();
                     }
                 }
 
-                if(output == String.Empty)
+                if (output == String.Empty)
                 {
                     output = "0";
                 }
@@ -451,22 +469,21 @@ namespace LaloLibrary.Maths
                 {
                     output = output.Remove(output.Length - 1);
                 }
-                
+
                 return output;
             }
         }
+
         public override string ToString()
         {
-            if(monomials.IsEmpty())
+            if (monomials.IsEmpty())
             {
                 return "0";
             }
             else
             {
                 return monomials.ToString();
-
             }
         }
     }
 }
-

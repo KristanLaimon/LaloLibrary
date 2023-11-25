@@ -16,7 +16,6 @@ namespace Maths
         [InlineData("-3", new[] { 'X' }, new[] { 0 }, -3)]
         [InlineData("-a", new[] { 'A' }, new[] { 1 }, -1)]
         [InlineData("-a^5", new[] { 'A' }, new[] { 5 }, -1)]
-
         public void Parse(string input, char[] expectedChars, int[] expectedExponents, int expectedCoefficient)
         {
             var expectedLiterals = new List<Literal>();
@@ -152,7 +151,6 @@ namespace Maths
             test.ToString().Should().Be(expected);
         }
 
-
         [Theory]
         [InlineData("3*d^-1*c^1*b^2*a^4", 'A')]
         [InlineData("3*d^-1*c^1*b^2*a^1", 'B')]
@@ -164,6 +162,5 @@ namespace Maths
             Literal highest = test.GetHighestLiteral();
             highest.Char.Should().Be(charExpected);
         }
-
     }
 }

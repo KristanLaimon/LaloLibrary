@@ -17,19 +17,20 @@ namespace LaloLibrary.Maths
             _literals = new LinkedDoubleCircularList<Literal>();
         }
 
-        public Monomial(int coefficient, LinkedDoubleCircularList<Literal> letters) 
+        public Monomial(int coefficient, LinkedDoubleCircularList<Literal> letters)
         {
             this._coefficient = coefficient;
             _literals = letters;
 
             _degree = FindDegree();
         }
+
         public Monomial(int coefficient, params Literal[] someLiterals)
         {
             Coefficient = coefficient;
             LinkedDoubleCircularList<Literal> temp = new();
 
-            foreach(Literal literal in someLiterals)
+            foreach (Literal literal in someLiterals)
             {
                 temp.Add(literal);
             }
@@ -38,42 +39,51 @@ namespace LaloLibrary.Maths
             _degree = FindDegree();
         }
 
-        public int Coefficient { get { return _coefficient; } set { _coefficient = value; } }
-        public int Degree { get { return _degree; } }
-        public LinkedDoubleCircularList<Literal> Literals { get { return _literals; } }
-
+        public int Coefficient
+        { get { return _coefficient; } set { _coefficient = value; } }
+        public int Degree
+        { get { return _degree; } }
+        public LinkedDoubleCircularList<Literal> Literals
+        { get { return _literals; } }
 
         #region Operators
+
         public static Monomial operator +(Monomial left, Monomial right)
         {
             return Sum(left, right);
         }
+
         public static Monomial operator -(Monomial left, Monomial right)
         {
             return Substract(left, right);
         }
+
         public static Monomial operator *(Monomial left, Monomial right)
         {
             left = left.Simplify();
             right = right.Simplify();
             return Multiply(left, right);
         }
+
         public static Monomial operator /(Monomial left, Monomial right)
         {
             left = left.Simplify();
             right = right.Simplify();
             return Divide(left, right, out int reminder);
         }
+
         public static int operator %(Monomial left, Monomial right)
         {
             Divide(left, right, out int reminder);
             return reminder;
         }
+
         private static Monomial Substract(Monomial left, Monomial right)
         {
             right = right.ToNegative();
             return left + right;
         }
+
         private static Monomial Sum(Monomial left, Monomial right)
         {
             if (Monomial.HaveSameDeterminant(left, right))
@@ -90,6 +100,7 @@ namespace LaloLibrary.Maths
                 return new Monomial();
             }
         }
+
         private static Monomial Multiply(Monomial left, Monomial right)
         {
             if (left.HasDefaultLiteral())
@@ -123,16 +134,15 @@ namespace LaloLibrary.Maths
                 }
             } while (!leftCopy.Literals.IsEmpty());
 
-
-            if(!leftCopy._literals.IsEmpty())
+            if (!leftCopy._literals.IsEmpty())
             {
-                foreach(Literal remaining in  leftCopy.Literals)
+                foreach (Literal remaining in leftCopy.Literals)
                 {
                     newListLiterals.Add(remaining);
                 }
             }
 
-            if(!rightCopy._literals.IsEmpty())
+            if (!rightCopy._literals.IsEmpty())
             {
                 foreach (Literal remaining in rightCopy.Literals)
                 {
@@ -140,10 +150,11 @@ namespace LaloLibrary.Maths
                 }
             }
             int newCoefficient = left.Coefficient * right.Coefficient;
-            Monomial toReturn =  new Monomial(newCoefficient, newListLiterals);
+            Monomial toReturn = new Monomial(newCoefficient, newListLiterals);
             toReturn = toReturn.NormalizeOnlyNumbers();
             return toReturn;
         }
+
         private static Monomial Divide(Monomial left, Monomial right, out int reminder)
         {
             int newCoefficient = left.Coefficient / right.Coefficient;
@@ -159,8 +170,9 @@ namespace LaloLibrary.Maths
 
             return resultExponents;
         }
-        #endregion
-  
+
+        #endregion Operators
+
         public Monomial OrderAlphabetically()
         {
             //Bubble Sort
@@ -172,9 +184,9 @@ namespace LaloLibrary.Maths
             {
                 thereWasSwaps = false;
 
-                for (int i = 0; i < length-1; i++)
+                for (int i = 0; i < length - 1; i++)
                 {
-                    if (copy[i].Char > copy[i+1].Char)
+                    if (copy[i].Char > copy[i + 1].Char)
                     {
                         char temChar = copy[i].Char;
                         copy[i].Char = copy[i + 1].Char;
@@ -182,19 +194,20 @@ namespace LaloLibrary.Maths
                         thereWasSwaps = true;
                     }
                 }
-
             } while (thereWasSwaps);
 
             return new Monomial(this.Coefficient, copy);
         }
+
         private void CopyOnlyLiteralsCharsFrom(LinkedDoubleCircularList<Literal> copyFrom)
         {
             this._literals = copyFrom.DeepClone();
-            foreach(Literal l in _literals)
+            foreach (Literal l in _literals)
             {
                 l.Exponent = 0;
             }
         }
+
         public static bool HaveSameDeterminant(Monomial left, Monomial right)
         {
             bool areSimilar = true;
@@ -219,6 +232,7 @@ namespace LaloLibrary.Maths
 
             return areSimilar;
         }
+
         public static Monomial Parse(string stringTerm)
         {
             string stringTermNoSpaces = stringTerm.Replace(" ", "");
@@ -276,13 +290,13 @@ namespace LaloLibrary.Maths
                 }
             }
 
-
             if (termToReturn._literals.IsEmpty())
                 termToReturn._literals.Add(new Literal());
 
             termToReturn._degree = termToReturn.FindDegree();
             return termToReturn;
         }
+
         private Literal GetLiteralFrom(char charsito)
         {
             foreach (Literal lit in _literals)
@@ -295,13 +309,14 @@ namespace LaloLibrary.Maths
 
             return new Literal();
         }
+
         public Literal GetHighestLiteral()
         {
             Literal highest = new();
 
-            foreach(Literal lit in _literals)
+            foreach (Literal lit in _literals)
             {
-                if(lit.Exponent > highest.Exponent)
+                if (lit.Exponent > highest.Exponent)
                 {
                     highest = lit.DeepClone();
                 }
@@ -309,6 +324,7 @@ namespace LaloLibrary.Maths
 
             return highest;
         }
+
         public int GetHighestExponent()
         {
             Literal highest = new();
@@ -323,6 +339,7 @@ namespace LaloLibrary.Maths
 
             return highest.Exponent;
         }
+
         public int GetExponentFrom(char charsito)
         {
             foreach (Literal lit in _literals)
@@ -335,6 +352,7 @@ namespace LaloLibrary.Maths
 
             return 0;
         }
+
         public Monomial NormalizeOnlyNumbers()
         {
             LinkedDoubleCircularList<Literal> cloneList = this._literals.DeepClone();
@@ -350,25 +368,29 @@ namespace LaloLibrary.Maths
             Monomial toReturn = new Monomial(this.Coefficient, cloneList);
             return toReturn;
         }
+
         public Monomial ToNegativeExponents()
         {
             Monomial copyMon = this.DeepClone();
-            foreach(Literal lit in copyMon.Literals)
+            foreach (Literal lit in copyMon.Literals)
             {
                 lit.ToNegativeExponent();
             }
             return copyMon;
         }
+
         private bool HasDefaultLiteral()
         {
             return _literals.Count() == 1 && _literals[0].IsEmptyLiteral();
         }
+
         public Monomial ToNegative()
         {
             Monomial copyMon = this.DeepClone();
             copyMon._coefficient *= -1;
             return copyMon;
         }
+
         public Monomial Simplify()
         {
             Monomial monoCopy = this.DeepClone();
@@ -382,7 +404,7 @@ namespace LaloLibrary.Maths
                 {
                     Literal lit2 = monoCopy.Literals[lit2Index];
 
-                    if(lit1.Char == lit2.Char && lit1Index != lit2Index)
+                    if (lit1.Char == lit2.Char && lit1Index != lit2Index)
                     {
                         int newExponent = lit1.Exponent + lit2.Exponent;
                         Literal newLit = new Literal(lit1.Char, newExponent);
@@ -395,9 +417,9 @@ namespace LaloLibrary.Maths
                 }
             }
 
-
             return new Monomial(this.Coefficient, monoCopy.Literals);
         }
+
         private int FindDegree()
         {
             int maxExponent = 0;
@@ -410,9 +432,10 @@ namespace LaloLibrary.Maths
             }
             return maxExponent;
         }
+
         public string ToHumanizeString()
         {
-            if(Coefficient == 0)
+            if (Coefficient == 0)
             {
                 return "";
             }
@@ -420,12 +443,12 @@ namespace LaloLibrary.Maths
             {
                 string output = String.Empty;
 
-                if(Coefficient == -1)
+                if (Coefficient == -1)
                 {
                     output += "-";
                 }
                 else
-                if(Coefficient != 1)
+                if (Coefficient != 1)
                 {
                     output += $"{Coefficient}";
                 }
@@ -436,9 +459,9 @@ namespace LaloLibrary.Maths
                 {
                     //lit.Exponent == 0 is already handled by literalclass
 
-                    if(lit.Exponent == 1)
+                    if (lit.Exponent == 1)
                     {
-                        if(beforeWasExponent)
+                        if (beforeWasExponent)
                         {
                             output += $"*{lit.ToHumanizeString()}";
                         }
@@ -458,6 +481,7 @@ namespace LaloLibrary.Maths
                 return output;
             }
         }
+
         public override string ToString()
         {
             string output = $"{Coefficient}";

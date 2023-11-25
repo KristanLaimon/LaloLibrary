@@ -10,7 +10,6 @@ namespace Utils
         [Fact]
         private void DobleCircularList()
         {
-
             LinkedDoubleCircularList<Person> people = new LinkedDoubleCircularList<Person>
             {
                 new Person { Name = "Alice", Age = 25 },
@@ -21,11 +20,9 @@ namespace Utils
             LinkedDoubleCircularList<Person> reff = people;
             LinkedDoubleCircularList<Person> cloned = people.DeepClone();
 
-
             int algo = 5;
             algo.DeepClone();
         }
-
 
         [Fact]
         private void Test()

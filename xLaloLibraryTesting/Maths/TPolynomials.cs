@@ -1,8 +1,7 @@
-global using Xunit;
-using System.Text.RegularExpressions;
 using FluentAssertions;
 using LaloLibrary.DataStuctures;
 using LaloLibrary.Maths;
+using System.Text.RegularExpressions;
 
 namespace Maths
 {
@@ -87,7 +86,6 @@ namespace Maths
         private void Degreee(string poly1, int degreeExpected)
         {
             Polynomial p1 = Polynomial.Parse(poly1);
-
         }
 
         //[Theory]
@@ -151,7 +149,5 @@ namespace Maths
             int number = collection.Count;
             Polynomial test = Polynomial.Parse("123*X^234*+123*X^234");
         }
-
-
     }
 }

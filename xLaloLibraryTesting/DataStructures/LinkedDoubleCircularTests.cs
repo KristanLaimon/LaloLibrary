@@ -5,17 +5,14 @@ namespace DataStructures
 {
     public class LinkedDoubleCircularTests
     {
-        LinkedDoubleCircularList<int> circularList = new();
+        private LinkedDoubleCircularList<int> circularList = new();
 
         [Theory]
         [InlineData(new int[] { 1, 2, 3 })]
-
         private void Add(int[] input)
         {
             circularList.Add(input);
             circularList.Add(1, 2, 3, 4, 5, 3, 2, 2, 2, 2, 2, 2, 2, 2);
-
-
         }
 
         [Theory]
@@ -90,7 +87,6 @@ namespace DataStructures
             circularList.MakeToArray().Should().BeEquivalentTo(
                 new int[]
                 {
-
                 }
                 );
             circularList.Count().Should().Be(0);
@@ -108,7 +104,6 @@ namespace DataStructures
             circularList.MakeToArray().Should().BeEquivalentTo(
                 new int[]
                 {
-
                 }
                 );
             circularList.Count().Should().Be(0);
@@ -133,34 +128,32 @@ namespace DataStructures
         {
             circularList.Add(input);
 
-
-            if(circularList.IsEmpty())
+            if (circularList.IsEmpty())
             {
                 Action action = () => circularList[0].Should();
                 action.Should().Throw<NullReferenceException>();
             }
         }
 
-        //[Fact]
-        //private void Inverse()
-        //{
-        //    circularList.Add(1);
-        //    circularList.Add(2);
-        //    circularList.Add(3);
-        //    circularList.Add(4);
-        //    circularList.Add(5);
+        [Fact]
+        private void Inverse()
+        {
+            circularList.Add(1);
+            circularList.Add(2);
+            circularList.Add(3);
+            circularList.Add(4);
+            circularList.Add(5);
 
-        //    circularList.InverseList();
+            circularList.InverseList();
 
-        //    circularList.MakeToArray().Should().NotBeEmpty();
-        //    circularList.MakeToArray().Should().BeInDescendingOrder();
-        //    circularList.MakeToArray().Should().BeEquivalentTo(
-        //        new int[]
-        //        {
-        //            5,4,3,2,1
-        //        }
-        //        );
-        //}
-
+            circularList.MakeToArray().Should().NotBeEmpty();
+            circularList.MakeToArray().Should().BeInDescendingOrder();
+            circularList.MakeToArray().Should().BeEquivalentTo(
+                new int[]
+                {
+                    5,4,3,2,1
+                }
+                );
+        }
     }
 }

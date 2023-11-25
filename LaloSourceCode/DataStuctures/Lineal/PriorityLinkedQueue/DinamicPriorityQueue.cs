@@ -28,26 +28,27 @@
                 }
                 else
                 {
-                    PNode<T> tempPointerNode = front;
+                    PNode<T> pointer = front;
 
-                    while (tempPointerNode.nextNode != null && newNode.priority <= tempPointerNode.nextNode.priority)
+                    while (pointer.nextNode != null && newNode.priority <= pointer.nextNode.priority)
                     {
-                        tempPointerNode = tempPointerNode.nextNode;
+                        pointer = pointer.nextNode;
                     }
 
-                    if (tempPointerNode.nextNode == null)
+                    if (pointer.nextNode == null)
                     {
                         back = newNode;
                     }
 
-                    newNode.nextNode = tempPointerNode.nextNode;
-                    tempPointerNode.nextNode = newNode;
+                    newNode.nextNode = pointer.nextNode;
+                    pointer.nextNode = newNode;
                 }
             }
             count++;
         }
 
-        public PriorityQueueItem<T> Dequeue()
+        public PriorityQueueItem<T> Dequeue(string hola, double número, params string[] anotherStrings)
+
         {
             if (this.IsEmpty())
             {

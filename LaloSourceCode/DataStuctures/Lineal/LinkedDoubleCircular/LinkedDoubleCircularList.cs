@@ -1,11 +1,6 @@
-﻿using LaloLibrary.DataStructures;
-using LaloLibrary.Exceptions;
-using System;
+﻿using LaloLibrary.Exceptions;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace LaloLibrary.DataStuctures
 {
@@ -13,8 +8,9 @@ namespace LaloLibrary.DataStuctures
     {
         private DualNode<T> first;
 
-        public LinkedDoubleCircularList() { }
-        
+        public LinkedDoubleCircularList()
+        { }
+
         public void Add(LinkedDoubleCircularList<T> list)
         {
             foreach (T data in list)
@@ -25,11 +21,11 @@ namespace LaloLibrary.DataStuctures
 
         public void Add(params T[] arrayData)
         {
-            foreach(T data in arrayData)
+            foreach (T data in arrayData)
             {
                 DualNode<T> newNode = new DualNode<T>(data);
 
-                if(IsEmpty())
+                if (IsEmpty())
                 {
                     first = newNode;
                     first.NextNode = first;
@@ -46,6 +42,7 @@ namespace LaloLibrary.DataStuctures
                 }
             }
         }
+
         public bool Remove(T removeData)
         {
             if (IsEmpty()) return false;
@@ -59,12 +56,12 @@ namespace LaloLibrary.DataStuctures
             DualNode<T> pointer = first;
             do
             {
-                if(pointer.Data.Equals(removeData))
+                if (pointer.Data.Equals(removeData))
                 {
                     pointer.BackNode.NextNode = pointer.NextNode;
                     pointer.NextNode.BackNode = pointer.BackNode;
 
-                    if(pointer == first)
+                    if (pointer == first)
                     {
                         first = pointer.NextNode;
                     }
@@ -75,7 +72,6 @@ namespace LaloLibrary.DataStuctures
                     return true;
                 }
                 pointer = pointer.NextNode;
-
             } while (pointer != first);
 
             return false;
@@ -88,7 +84,7 @@ namespace LaloLibrary.DataStuctures
             DualNode<T> pointer = first;
             do
             {
-                if(pointer.Data.Equals(dataToStop))
+                if (pointer.Data.Equals(dataToStop))
                 {
                     DualNode<T> nextNode = pointer.NextNode;
                     DualNode<T> nodeToInsert = new DualNode<T>(dataAfter);
@@ -103,10 +99,9 @@ namespace LaloLibrary.DataStuctures
                 }
 
                 pointer = pointer.NextNode;
-            }while(pointer != first);
+            } while (pointer != first);
 
             return false;
-
         }
 
         public bool AddBefore(T dataToStop, T dataBefore)
@@ -137,6 +132,7 @@ namespace LaloLibrary.DataStuctures
         }
 
         public void Clear() => first = null;
+
         public bool Contains(T data)
         {
             if (IsEmpty()) return false;
@@ -164,24 +160,23 @@ namespace LaloLibrary.DataStuctures
             {
                 count++;
                 pointer = pointer.NextNode;
-
             } while (pointer != first);
 
             return count;
         }
 
-        public bool Replace(T dataToReplace, T  Data)
+        public bool Replace(T dataToReplace, T Data)
         {
             if (IsEmpty()) return false;
 
             int foundIndex = GetIindexAt(dataToReplace);
 
             if (foundIndex == -1) return false;
-            
+
             this[foundIndex] = Data;
             return true;
         }
-        
+
         public int GetIindexAt(T data)
         {
             if (IsEmpty()) return -1;
@@ -192,7 +187,6 @@ namespace LaloLibrary.DataStuctures
             {
                 if (pointer.Data.Equals(data))
                 {
-
                     return index;
                 }
 
@@ -202,7 +196,7 @@ namespace LaloLibrary.DataStuctures
 
             return -1;
         }
-        
+
         public bool IsEmpty()
         {
             return first == null;
@@ -232,7 +226,7 @@ namespace LaloLibrary.DataStuctures
 
         private DualNode<T> GetLastNode()
         {
-            if(!IsEmpty())
+            if (!IsEmpty())
             {
                 DualNode<T> pointer = first;
 
@@ -270,27 +264,25 @@ namespace LaloLibrary.DataStuctures
             return GetEnumerator();
         }
 
-        //public void InverseList()
-        //{
-        //    if (IsEmpty()) return;
+        public void InverseList()
+        {
+            if (IsEmpty()) return;
 
-        //    DualNode<T> current = first;
-        //    do
-        //    {
-        //        // Intercambia los nodos de siguiente y anterior
-        //        DualNode<T> temp = current.NextNode;
-        //        current.NextNode = current.BackNode;
-        //        current.BackNode = temp;
+            DualNode<T> previous = null;
+            DualNode<T> current = first;
 
-        //        // Mueve al siguiente nodo
-        //        current = current.BackNode;
+            do
+            {
+                previous = current.BackNode;
 
-        //    } while (current != first);
+                current.BackNode = current.NextNode;
+                current.NextNode = previous;
 
-        //    // Actualiza el puntero al primer nodo
-        //    first = first.BackNode;
-        //}
+                current = current.BackNode;
+            } while (current != first);
 
+            first = current.NextNode;
+        }
 
         public T this[int index]
         {
@@ -298,7 +290,7 @@ namespace LaloLibrary.DataStuctures
             {
                 DualNode<T> pointer = first;
 
-                for(int i = 0; i < index; i++)
+                for (int i = 0; i < index; i++)
                 {
                     pointer = pointer.NextNode;
                 }
@@ -323,7 +315,7 @@ namespace LaloLibrary.DataStuctures
             list1.Add(list2.MakeToArray());
             return list1;
         }
-        
+
         public override string ToString()
         {
             StringBuilder sb = new();
@@ -331,6 +323,5 @@ namespace LaloLibrary.DataStuctures
             string itemsSepatared = string.Join(", ", thisItems);
             return itemsSepatared;
         }
-
     }
 }

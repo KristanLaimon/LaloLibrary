@@ -1,7 +1,7 @@
-﻿using System.Text.RegularExpressions;
-using LaloLibrary.DataStructures.Lineal;
+﻿using LaloLibrary.DataStructures.Lineal;
 using LaloLibrary.DataStuctures;
 using LaloLibrary.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace LaloLibrary.Maths
 {
@@ -57,6 +57,5 @@ namespace LaloLibrary.Maths
 
             return resultado;
         }
-
     }
 }

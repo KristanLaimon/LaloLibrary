@@ -1,5 +1,4 @@
-﻿
-namespace LaloLibrary.DataStuctures
+﻿namespace LaloLibrary.DataStuctures
 {
     internal class DualNode<T>
     {
@@ -7,7 +6,8 @@ namespace LaloLibrary.DataStuctures
         internal DualNode<T> BackNode;
         internal T Data;
 
-        public DualNode() { }
+        public DualNode()
+        { }
 
         public DualNode(T data)
         {

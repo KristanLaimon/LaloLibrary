@@ -1,6 +1,4 @@
-﻿using LaloLibrary.DataStructures;
-
-namespace LaloLibrary.DataStructures
+﻿namespace LaloLibrary.DataStructures
 {
     //The challenge is make it with only one Node<T> reference node!
     public class LinkedLaloList<T>

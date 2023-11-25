@@ -19,7 +19,7 @@
 
         public static bool AreSimilar(Literal left, Literal right)
         {
-            if(left.Char == right.Char)
+            if (left.Char == right.Char)
             {
                 return true;
             }
@@ -27,14 +27,17 @@
                 return false;
             }
         }
+
         public void ToNegativeExponent()
         {
             Exponent *= -1;
         }
+
         public bool IsEmptyLiteral()
         {
             return Exponent == 0;
         }
+
         public string ToHumanizeString()
         {
             char humanChar = char.ToLower(Char);
@@ -42,19 +45,20 @@
 
             if (Exponent == 1)
             {
-                output =  $"{humanChar}";
+                output = $"{humanChar}";
             }
             else if (Exponent == 0)
             {
-                output =  "";
+                output = "";
             }
-            else 
+            else
             {
                 output = $"{humanChar}^{Exponent}";
             }
 
             return output;
         }
+
         public override string ToString()
         {
             return $"{Char}^{Exponent}";
