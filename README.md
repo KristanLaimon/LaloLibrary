@@ -1,7 +1,7 @@
 # Lalo Library
 
 <div>
-	<img src ="lalosourcecode/lalo.png"></img>
+	<img src ="LaloSourceCode/lalo.png"></img>
 </div>
 
 A simple library made for c# applications for general purpose with quolity of life (QOL) algotythms, reinvented algorythms and a section of utilities for winforms applications.
