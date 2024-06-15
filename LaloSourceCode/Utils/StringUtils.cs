@@ -135,6 +135,15 @@ namespace LaloLibrary.Utils
             return false;
         }
 
+        public static bool isNumber(string numbString)
+        {
+            foreach (char c in numbString)
+            {
+                if(!Char.IsNumber(c)) return false;
+            }
+            return true;
+        }
+
         public static string RemoveRedundantZeros(string expression)
         {
             // Patrón de coincidencia de números decimales con ceros redundantes
